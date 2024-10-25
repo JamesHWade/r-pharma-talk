@@ -1,0 +1,71 @@
+/*-- scss:defaults --*/
+$theme-darkblue: #18396e;
+$theme-blue: #306998;
+$theme-white: #ece2d0;
+$theme-yellow: #F4BA02;
+$theme-lightblue: #5ba6b5;
+// $theme-lightblue: #91E5F6;
+$theme-coral: #F45B69;
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+
+$body-bg: $theme-blue;
+$body-color: $theme-white;
+$link-color: $theme-yellow;
+$presentation-heading-color: $theme-white;
+$code-color: $theme-yellow;
+
+$font-family-sans-serif: 'Roboto', 'Manrope', sans-serif;
+$presentation-heading-font: 'Merriweather', 'IBM Plex Serif', serif;
+
+/*-- scss:rules --*/
+
+.blue {
+  color: $theme-blue;
+  font-weight: bold;
+}
+
+.darkblue {
+  color: $theme-darkblue;
+  font-weight: bold;
+}
+
+.yellow {
+  color: $theme-yellow;
+  font-weight: bold;
+}
+
+.white {
+  color: $theme-white;
+  font-weight: bold;
+}
+
+.reveal .slide a {
+  text-decoration: underline;
+}
+
+.highlight-last  {
+  color: #c9a214;
+  .current-fragment {
+    color: black;
+  }
+}
+
+@mixin gradient-blue {
+  background: linear-gradient(45deg, $theme-lightblue, $theme-darkblue);
+}
+
+@mixin gradient-yellow {
+  background: linear-gradient(45deg, $theme-yellow, #fffcad);
+}
+
+/* Add gradient background */
+.reveal {
+  .slide-background {
+    @include gradient-blue;
+  }
+  .slide-background.gradient-yellow {
+    @include gradient-yellow;
+  }
+}
