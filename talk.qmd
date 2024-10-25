@@ -177,7 +177,7 @@ chat$chat("What am I looking at?",
           content_image_url(img))
 ```
 
-## But let's remember Joe's advice...
+## But let's remember Joe's advice... {.center}
 
 <br>
 
