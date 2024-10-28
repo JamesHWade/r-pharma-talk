@@ -7,7 +7,7 @@ title-slide-attributes:
   data-background-image: "images/posit-academy-robot-classroom.jpeg"
   data-background-size: contain
   data-background-opacity: "0.3"
-footer: "posit::conf(2024)"
+footer: "R/Pharma 2024"
 format:
   revealjs:
     logo: images/dow.svg
@@ -23,11 +23,11 @@ format:
 
 :::::: columns
 ::: {.column width="33%"}
-![[`{chattr}`](https://github.com/mlverse/chattr)](images/chattr.png){height="250px"}
+![[`chattr`](https://github.com/mlverse/chattr)](images/chattr.png){height="250px"}
 :::
 
 ::: {.column width="33%"}
-![[`{gptstudio}`](https://github.com/michelnivard/gptstudio)](images/gptstudio.png){width="250px"}
+![[`gptstudio`](https://github.com/michelnivard/gptstudio)](images/gptstudio.png){width="250px"}
 :::
 
 ::: {.column width="33%"}
@@ -37,20 +37,64 @@ format:
 
 ## Sidebots
 
-![](images/sidebot.png)
+![Joe Cheng's talk "Shiny x AI" at posit::conf(2024)](images/sidebot.png){.rounded-shadow}
 
 ## Advice from Joe
 
-![](images/advice-from-joe.png)
+![](images/advice-from-joe.png){.rounded-shadow}
 
-## Let's Build a Chatbot
+## Advice from Joe {auto-animate="true"}
 
-```{.r code-line-numbers="|3|6|10-11|12-14"}
+::::: columns
+::: {.column width="50%"}
+> Being a mere consumer of Copilot and ChatGPT is not enough to have a well-informed opinion of the potential of LLMs (you will miss out on structured output and tool calls).
+>
+> **Start coding!**
+:::
+
+::: {.column width="50%"}
+![](images/robot-assistant.jpeg){.rounded-shadow}
+:::
+:::::
+
+## Advice from Joe {auto-animate="true"}
+
+<br>
+
+:::: columns
+::: {.column width="40%"}
+![Stochastic Parrot](images/stochastic_parrot.jpeg){.rounded-shadow}
+:::
+::::
+
+## Advice from Joe {auto-animate="true"}
+
+<br>
+
+:::::: columns
+::: {.column width="40%"}
+![Stochastic Parrot](images/stochastic_parrot.jpeg){.rounded-shadow}
+:::
+
+::: {.column width="20%"}
+### vs {style="text-align: center"}
+:::
+
+::: {.column width="40%"}
+![Machines that Reason](images/machine-reasoning.jpeg){.rounded-shadow}
+:::
+::::::
+
+## Let's Build a Chatbot {auto-animate="true"}
+
+## Let's Build a Chatbot {auto-animate="true" auto-animate-easing="ease-in-out"}
+
+``` {.r code-line-numbers="|3|6|10-11|12-14"}
 library(shiny)
 library(bslib)
 library(shinychat) # pak::pak("jcheng5/shinychat")
 
-ui <- page_fillable(
+ui <- page_fluid(
   chat_ui("chat")
 )
 
@@ -65,28 +109,9 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-## Sidebot
+## Let's Build a Chatbot {auto-animate="true"}
 
-```{r}
-#| eval: false
-ui <- page_sidebar(
-  title = "Sidebar App",
-  sidebar = sidebar(
-    width = 400,
-    style = "height: 100%;",
-    chat_ui("chat", height = "100%", fill = TRUE)
-  ),
-)
-
-server <- function(input, output, session) {
-  chat_append("chat", "Hello there. Let's chat!")
-
-  observeEvent(input$chat_user_input, {
-    chat_append("chat", paste0("You said \"", input$chat_user_input, "\""))
-  })
-}
-```
-
+![A very simple chatbot](images/simple-chatbot.png){.rounded-shadow width="50%"}
 
 ## Meet `elmer` {auto-animate="true"}
 
@@ -96,7 +121,7 @@ server <- function(input, output, session) {
 
 <br>
 
-```.r
+``` r
 library(elmer)                # pak::pak("hadley/elmer")
 chat <- chat_openai()         # requires api key
 ```
@@ -107,7 +132,7 @@ chat <- chat_openai()         # requires api key
 
 <br>
 
-```.r
+``` r
 library(elmer)                # pak::pak("hadley/elmer")
 chat <- chat_openai()         # requires api key
 chat$chat("Hello there")
@@ -120,7 +145,7 @@ chat$chat("Hello there")
 
 <br>
 
-```.r
+``` r
 library(elmer)                # pak::pak("hadley/elmer")
 chat <- chat_openai()         # requires api key
 chat$chat("Hello there")
@@ -135,7 +160,7 @@ chat$chat("Tell me a pithy coding joke.")
 
 <br>
 
-```.r
+``` r
 library(elmer)                # pak::pak("hadley/elmer")
 chat <- chat_openai()         # requires api key
 chat$chat("Hello there")
@@ -153,7 +178,7 @@ chat <- chat_claude()         # requires api key
 
 <br>
 
-```.r
+``` r
 library(elmer)                # pak::pak("hadley/elmer")
 chat <- chat_openai()         # requires api key
 chat$chat("Hello there")
@@ -167,443 +192,219 @@ chat$chat("Please solve all my shiny app problems")
 #> Of course! I'd be happy to help with any issues with your...
 ```
 
-## More fun with `elmer`
+## More fun with `elmer` {auto-animate="true"}
+
+![](images/elmer.png){.absolute top="-40" left="800" width="125"}
 
 We can easily pass images.
 
-```.r
+``` r
+library(elmer)
+chat <- chat_openai(model = "gpt-4o", echo = TRUE)
 img <- "https://github.com/hadley/elmer/raw/main/man/figures/logo.png"
 chat$chat("What am I looking at?",
           content_image_url(img))
 ```
 
-## But let's remember Joe's advice... {.center}
+## More fun with `elmer` {auto-animate="true"}
 
-<br>
+![](images/elmer.png){.absolute top="-40" left="800" width="125"}
 
-> Being a mere consumer of Copilot and ChatGPT is not enough to have a well-incormed opinion of the potential of LLMs (you will miss out on structured output and tool calls). **Start coding!**
+We can easily pass images.
 
+``` r
+library(elmer)
+chat <- chat_openai(model = "gpt-4o", echo = TRUE)
+img <- "https://github.com/hadley/elmer/raw/main/man/figures/logo.png"
+chat$chat("What am I looking at?",
+          content_image_url(img))
+#> This is an illustration featuring Elmer the Patchwork 
+#> Elephant. Elmer is known for his colorful, patchwork 
+#> appearance, and the image showcases a cheerful, 
+#> multicolored design typical of the Elmer series of 
+#> children's books by David McKee.
+```
 
+## More fun with `elmer` {auto-animate="true"}
 
-##  {.center}
+![](images/elmer.png){.absolute top="-40" left="800" width="125"}
 
-Over [**half**]{.yellow} of Posit Academy learners gave AI code assistants a [**2 star rating or less**]{.yellow}.
+We can easily pass images.
 
-##  {.gradient-yellow background-color="#f5d253"}
+``` r
+library(elmer)
+chat <- chat_openai(model = "gpt-4o", echo = TRUE)
+img <- "https://github.com/hadley/elmer/raw/main/man/figures/logo.png"
+chat$chat("What am I looking at?",
+          content_image_url(img))
+#> This is an illustration featuring Elmer the Patchwork 
+#> Elephant. Elmer is known for his colorful, patchwork 
+#> appearance, and the image showcases a cheerful, 
+#> multicolored design typical of the Elmer series of 
+#> children's books by David McKee.
+```
 
+And ask follow up questions...
 
+``` r
+chat$chat("In one sentence, does this make sense as a hex sticker for an R 
+package for LLM APIs?")
+#> Yes, it makes sense if the package emphasizes creativity, 
+#> diversity, or colorful data representation, drawing a 
+#> parallel with Elmer's vibrant and patchwork theme.
+```
 
-##  {.center}
+## You can pass plots to `elmer` too
 
-### What were the most rewarding high-growth periods of your life?
+```{r}
+#| echo: false 
+#| fig-align: 'center'
+#| fig-width: 6
+#| fig-height: 4
+#| out-extra: .rounded-shadow
+library(ggplot2)
+
+set.seed(123)
+data <- data.frame(x = rnorm(100), y = rnorm(100) + 0.5 * rnorm(100))
+
+ggplot(data, aes(x = x, y = y)) +
+  geom_point(color = "darkorange", fill = "skyblue") +
+  geom_smooth(method = "lm", color = "purple", linetype = "dashed") +
+  labs(title = "Fun Scatter Plot!", x = "Random X", y = "Random Y") +
+  theme_minimal(base_size = 14) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5))
+```
+
+``` r
+chat$chat("In a few words, interpret this plot", content_image_plot())
+#> No significant trend; random distribution around the mean.
+```
+
+## Let's Build (an actual) Chatbot {auto-animate="true" auto-animate-easing="ease-in-out"}
+
+``` {.r code-line-numbers="|8-11|12-15"}
+library(shiny)
+
+ui <- bslib::page_fluid(
+  shinychat::chat_ui("chat")
+)
+
+server <- function(input, output, session) {
+  chat <- elmer::chat_openai(
+    model = "gpt-4o-mini",
+    system_prompt = "You are a pithy, but helpful assistant."
+  )
+  observeEvent(input$chat_user_input, {
+    stream <- chat$stream_async(input$chat_user_input)
+    shinychat::chat_append("chat", stream)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## But let's remember Joe's advice... {.center auto-animate="true"}
 
 ::::: columns
-::: {.column .incremental width="50%"}
-1.  Learning wasn’t the point.
-2.  Learning really worked.
-:::
-
 ::: {.column width="50%"}
-![Andy Matuschak \| [How might we learn?](https://andymatuschak.org/hmwl/)](images/clipboard-4024275909.png){width="50%"}
-:::
-:::::
-
-##  {.center .gradient-yellow background-color="#f5d253"}
-
-So what's missing?
-
-. . .
-
-**Threshold Concepts**
-
-## What Are Threshold Concepts? {.center .gradient-yellow background-color="#f5d253" auto-animate="true"}
-
-. . .
-
-<br>
-
-These are ideas that, once understood, [transform your perception]{.darkblue} and approach of a discipline.
-
-. . .
-
-<br>
-
-Threshold concepts must be [encountered]{.darkblue}.
-
-## [Threshold concepts: ]{.r-fit-text}[embrace the struggle]{.darkblue} {.center .gradient-yellow background-color="#f5d253" auto-animate="true"}
-
-<br>
-
-::: {.incremental .highlight-last .r-fit-text}
--   **Troublesome**: Conceptually difficult, challenge prior knowledge
--   **Liminal**: Understanding is non-linear and maybe confusing
--   **Transformative**: Recognize new patterns, a new understanding
--   **Irreversible**: Once understood, you cannot unlearn it
-:::
-
-<br>
-
-::: footer
-Explore more: [*Naming What We Know*](https://upcolorado.com/utah-state-university-press/item/2965-naming-what-we-know-classroom-edition) by Adler-Kassner & Wardle (2016)
-:::
-
-## [My rewarding, high-growth period]{.r-fit-text}
-
-. . .
-
-![](images/babies.png){.absolute top="200" left="500" width="500"}
-
-::: incremental
-1.  Asking for help means you care
-2.  Self-care is not selfish
-3.  Incomplete todo lists are okay
-:::
-
-## [Threshold Concepts in Data Science]{.r-fit-text} {.center .gradient-yellow background-color="#f5d253"}
-
-::::: columns
-::: {.column width="60%"}
-1.  Tidy data enables efficient analysis
-2.  Modular code enhances reusability & clarity
-3.  Visualization is a tool for exploration & communication
-:::
-
-::: {.column width="40%"}
-![](images/clipboard-717811020.png)
-:::
-:::::
-
-## What ChatGPT *won't* give you {.center .gradient-yellow background-color="#f5d253"}
-
-Learning *dispositions* for code-based data science
-
-. . .
-
-1.  [Sense of the possible]{.darkblue}
-
-    *An internal sense of capability and persistence*
-
-. . .
-
-2.  [Flexibility]{.darkblue}
-
-    *Expand your palette of possibilities*
-
-## [Time to ]{.r-fit-text}[discard]{.yellow} AI coding assistants? {.center}
-
-##  {background-image="images/clipboard-2936246767.png"}
-
-::: notes
-> The famous “bicycle for the mind” metaphor is better because it has no agenda other than the one you bring. It just lets you reach a wider range of destinations than you could on foot. And it makes the journey fun too, particularly if you’re biking along with some friends. The bicycle asks: where do you want to go?
+> Being a mere consumer of Copilot and ChatGPT is not enough to have a well-ifcormed opinion of the potential of LLMs (you will miss out on [structured output]{.yellow} and [tool calls]{.yellow}).
 >
-> Of course, that question assumes your destination is well-known and clearly charted on some map. But those most rewarding high-growth experiences are often centered on a creative project. You’re trying to get somewhere no one’s ever gone before—to reach the frontier, then start charting links into the unknown. Learning in service of creation. It’s a dynamic, context-laden kind of learning. It’s about more than just efficiency and correctness. More than just faster gears on a bike. That’s the kind of learning I feel an almost moral imperative to help create. Source: https://andymatuschak.org/hmwl/
-:::
-
-##  {.center background-image="images/cello.png"}
-
-:::::: columns
-::: {.column width="10%"}
+> **Start coding!**
 :::
 
 ::: {.column width="50%"}
-Coding as a
+![](images/robot-assistant.jpeg){.rounded-shadow}
+:::
+:::::
+
+## Structured Output
+
+:::: {.columns}
+
+::: {.column}
+Structured output is awesome
 :::
 
-::: {.column width="40%"}
-[contingent]{.yellow} discipline
-:::
-::::::
-
-::: notes
--   We discover what we want to build as we build it --\> so we should use ChatGPT to shorten the iteration cycles
+::: {.column}
+![](images/nejm_screenshot.png){.rounded-shadow}
 :::
 
-## [Posit Academy Foundations Curriculum]{.r-fit-text} {auto-animate="true" auto-animate-easing="ease-in-out"}
 
-::::::::::::::::: columns
-::::::::: {.column width="50%"}
-:::::::: r-vstack
-::: {data-id="item1" style="background: #ff595e; width: 500px; height: 80px; margin: 15px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-R Basics
-:::
-
-::: {data-id="item2" style="background: #ffca3a; width: 500px; height: 80px; margin: 15px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-Read & Visualize
-:::
-
-::: {data-id="item3" style="background: #8ac926; width: 500px; height: 80px; margin: 15px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-Summarize Data
-:::
-
-::: {data-id="item4" style="background: #1982c4; width: 500px; height: 80px; margin: 15px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-Create & Select Columns
-:::
-
-::: {data-id="item5" style="background: #fd7e14; width: 500px; height: 80px; margin: 15px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-Tidy & Join Tables
-:::
-::::::::
-:::::::::
-
-::::::::: {.column width="50%"}
-:::::::: r-vstack
-::: {data-id="item6" style="background: #ff595e; width: 500px; height: 80px; margin: 15px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-Write Functions
-:::
-
-::: {data-id="item7" style="background: #ffca3a; width: 500px; height: 80px; margin: 15px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-Work with Data Types
-:::
-
-::: {data-id="item8" style="background: #8ac926; width: 500px; height: 80px; margin: 15px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-Analyze Data
-:::
-
-::: {data-id="item9" style="background: #1982c4; width: 500px; height: 80px; margin: 15px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-Showcase Results
-:::
-
-::: {data-id="item10" style="background: #fd7e14; width: 500px; height: 80px; margin: 15px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-Iterate
-:::
-::::::::
-:::::::::
-:::::::::::::::::
-
-## [How to incorporate AI code assitants?]{.r-fit-text} {auto-animate="true" auto-animate-easing="ease-in-out"}
-
-<br>
-
-::::::::::::: r-hstack
-::: {data-id="item1" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #ff595e; background: white; margin: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ff595e; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-1
-:::
-
-::: {data-id="item2" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #ffca3a; background: white; margin: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ffca3a; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-2
-:::
-
-::: {data-id="item3" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #8ac926; background: white; margin: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #8ac926; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-3
-:::
-
-::: {data-id="item4" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #1982c4; background: white; margin: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #1982c4; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-4
-:::
-
-::: {data-id="item5" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #fd7e14; background: white; margin: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fd7e14; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-5
-:::
-
-::: {data-id="item6" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #ff595e; background: white; margin: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ff595e; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-6
-:::
-
-::: {data-id="item7" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #ffca3a; background: white; margin: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ffca3a; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-7
-:::
-
-::: {data-id="item8" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #8ac926; background: white; margin: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #8ac926; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-8
-:::
-
-::: {data-id="item9" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #1982c4; background: white; margin: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #1982c4; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-9
-:::
-
-::: {data-id="item10" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #fd7e14; background: white; margin: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fd7e14; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-10
-:::
-:::::::::::::
-
-## [How to incorporate AI code assitants?]{.r-fit-text} {auto-animate="true" auto-animate-easing="ease-in-out"}
-
-<br>
-
-**Week 3**: Summarize Data
-
-::::::::::::: r-hstack
-::: {data-id="item1" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #ff595e; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ff595e; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-1
-:::
-
-::: {data-id="item2" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #ffca3a; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ffca3a; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-2
-:::
-
-::: {data-id="item3" style="width: 110px; height: 110px; border-radius: 50%; border: 4px solid #8ac926; background: #8ac926; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-3
-:::
-
-::: {data-id="item4" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #1982c4; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #1982c4; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-4
-:::
-
-::: {data-id="item5" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #fd7e14; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fd7e14; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-5
-:::
-
-::: {data-id="item6" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #ff595e; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ff595e; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-6
-:::
-
-::: {data-id="item7" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #ffca3a; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ffca3a; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-7
-:::
-
-::: {data-id="item8" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #8ac926; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #8ac926; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-8
-:::
-
-::: {data-id="item9" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #1982c4; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #1982c4; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-9
-:::
-
-::: {data-id="item10" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #fd7e14; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fd7e14; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-10
-:::
-:::::::::::::
-
-<br>
-
-:::: r-stack
-::: {data-id="box1" style="background: #8ac926; border: 8px solid #8ac926; width: 800px; height: 150px; border-radius: 25px; text-align: center; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; margin-left: 0px; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);"}
-"Explain this code piece by piece"\
-"Show me how to group by two columns"
-:::
 ::::
 
-## [How to incorporate AI code assitants?]{.r-fit-text} {auto-animate="true" auto-animate-easing="ease-in-out"}
+
+## Structured Output {.scrollable}
+
+::: {.panel-tabset}
+
+### Result
+
+```{r}
+readr::read_csv("extracted_study_info.csv",
+                col_types = readr::cols(.default = "c")) |>
+  tidyr::pivot_longer(cols = dplyr::everything()) |> 
+  gt::gt() |> 
+  gtExtras::gt_theme_nytimes()
+```
+
+### Code
+
+```{.r}
+chat <- chat_openai(model = "gpt-4o")                  #<1>
+text <- read_pdf(file_path = "NEJMoa2302392.pdf")      #<2>
+extracted_data <- chat$extract_data(text, spec = study_info_spec) #<3>
+extracted_tbl <- studies_to_table(extracted_data)      #<4>
+```
+
+1. Create a chat object
+2. Extract text with `read_pdf` helper function
+3. Structured output call with custom specifiction
+4. Convert to a table
+
+:::
+
+
+
+## Tool Calling
+
+An example with the weather:
+
+```{.r}
+# simple chat interface
+elmer::live_browser(chat)
+```
+
+![](images/paste-1.png){.rounded-shadow fig-align="center"}
+
+
+## To use a tool, register it first
 
 <br>
 
-**Week 6**: Write Functions
-
-::::::::::::: r-hstack
-::: {data-id="item1" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #ff595e; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ff595e; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-1
-:::
-
-::: {data-id="item2" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #ffca3a; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ffca3a; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-2
-:::
-
-::: {data-id="item3" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #8ac926; background: white; margin: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #8ac926; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-3
-:::
-
-::: {data-id="item4" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #1982c4; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #1982c4; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-4
-:::
-
-::: {data-id="item5" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #fd7e14; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fd7e14; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-5
-:::
-
-::: {data-id="item6" style="width: 110px; height: 110px; border-radius: 50%; border: 4px solid #ff595e; background: #ff595e; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-6
-:::
-
-::: {data-id="item7" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #ffca3a; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ffca3a; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-7
-:::
-
-::: {data-id="item8" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #8ac926; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #8ac926; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-8
-:::
-
-::: {data-id="item9" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #1982c4; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #1982c4; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-9
-:::
-
-::: {data-id="item10" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #fd7e14; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fd7e14; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-10
-:::
-:::::::::::::
+```{.r}
+chat$register_tool(
+  tool(
+  .fun = get_forecast,
+  .description = "Gets 7-day weather forecast for a city",
+  # typed arguments
+  city = type_string("The name of the city"),
+  state = type_string("State name or abbreviation (required)")
+  )
+)
+```
 
 <br>
 
-:::: r-stack
-::: {data-id="box1" style="background: #ff595e; border: 8px solid #ff595e; width: 750px; height: 150px; border-radius: 25px; text-align: center; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; margin-left: 50px; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);"}
-"Add a roxygen skeleton to my code" "Suggest 3 ways to improve my code"
-:::
-::::
+Types: `type_string()`, `type_integer()`, `type_number()`, `type_boolean()`, `type_array()`, `type_object()`, `type_enum()`
 
-## [How to incorporate AI code assitants?]{.r-fit-text} {auto-animate="true" auto-animate-easing="ease-in-out"}
 
-<br>
+## Sidebots - Why are they so useful? {.center}
 
-**Week 9**: Showcase Results
+. . . 
 
-::::::::::::: r-hstack
-::: {data-id="item1" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #ff595e; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ff595e; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-1
-:::
 
-::: {data-id="item2" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #ffca3a; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ffca3a; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-2
-:::
 
-::: {data-id="item3" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #8ac926; background: white; margin: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #8ac926; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-3
-:::
 
-::: {data-id="item4" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #1982c4; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #1982c4; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-4
-:::
-
-::: {data-id="item5" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #fd7e14; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fd7e14; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-5
-:::
-
-::: {data-id="item6" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #ff595e; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ff595e; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-6
-:::
-
-::: {data-id="item7" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #ffca3a; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ffca3a; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-7
-:::
-
-::: {data-id="item8" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #8ac926; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #8ac926; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-8
-:::
-
-::: {data-id="item9" style="width: 110px; height: 110px; border-radius: 50%; border: 4px solid #1982c4; background: #1982c4; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-9
-:::
-
-::: {data-id="item10" style="width: 75px; height: 75px; border-radius: 50%; border: 4px solid #fd7e14; background: white; margin: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fd7e14; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"}
-10
-:::
-:::::::::::::
-
-<br>
-
-:::: r-stack
-::: {data-id="box1" style="background: #1982c4; border: 8px solid #1982c4; width: 700px; height: 150px; border-radius: 25px; text-align: center; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; margin-right: 0px; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);"}
-Try out code assistants in the IDE "What pkgs should I explore next?"
-:::
-::::
-
-##  {.gradient-yellow background-color="#f5d253"}
-
-![](images/happy-robot.png){fig-align="center"}
-
-## [What are ]{.r-fit-text}[TCs]{.yellow} for coding assistants?
-
-::: {.incremental .r-fit-text}
-Some ideas...
-
-1.  Drive faster but don't forget to steer
-2.  Prompting matters: learning to use these tools is a skill
-3.  ...?
-:::
-
-. . .
-
-<hr>
-
-Are these right? What's missing?
 
 ## [🙏 Thank you to those who make it happen! 🙏]{.r-fit-text} {.center .smaller}
 
