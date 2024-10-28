@@ -85,9 +85,9 @@ format:
 :::
 ::::::
 
-## Let's Build a Chatbot {auto-animate="true"}
+## Let's (almost) Build a Chatbot {auto-animate="true"}
 
-## Let's Build a Chatbot {auto-animate="true" auto-animate-easing="ease-in-out"}
+## Let's (almost) Build a Chatbot {auto-animate="true" auto-animate-easing="ease-in-out"}
 
 ``` {.r code-line-numbers="|3|6|10-11|12-14"}
 library(shiny)
@@ -109,7 +109,7 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-## Let's Build a Chatbot {auto-animate="true"}
+## Let's (almost) Build a Chatbot {auto-animate="true"}
 
 ![A very simple chatbot](images/simple-chatbot.png){.rounded-shadow width="50%"}
 
@@ -218,10 +218,10 @@ chat <- chat_openai(model = "gpt-4o", echo = TRUE)
 img <- "https://github.com/hadley/elmer/raw/main/man/figures/logo.png"
 chat$chat("What am I looking at?",
           content_image_url(img))
-#> This is an illustration featuring Elmer the Patchwork 
-#> Elephant. Elmer is known for his colorful, patchwork 
-#> appearance, and the image showcases a cheerful, 
-#> multicolored design typical of the Elmer series of 
+#> This is an illustration featuring Elmer the Patchwork
+#> Elephant. Elmer is known for his colorful, patchwork
+#> appearance, and the image showcases a cheerful,
+#> multicolored design typical of the Elmer series of
 #> children's books by David McKee.
 ```
 
@@ -237,27 +237,27 @@ chat <- chat_openai(model = "gpt-4o", echo = TRUE)
 img <- "https://github.com/hadley/elmer/raw/main/man/figures/logo.png"
 chat$chat("What am I looking at?",
           content_image_url(img))
-#> This is an illustration featuring Elmer the Patchwork 
-#> Elephant. Elmer is known for his colorful, patchwork 
-#> appearance, and the image showcases a cheerful, 
-#> multicolored design typical of the Elmer series of 
+#> This is an illustration featuring Elmer the Patchwork
+#> Elephant. Elmer is known for his colorful, patchwork
+#> appearance, and the image showcases a cheerful,
+#> multicolored design typical of the Elmer series of
 #> children's books by David McKee.
 ```
 
 And ask follow up questions...
 
 ``` r
-chat$chat("In one sentence, does this make sense as a hex sticker for an R 
+chat$chat("In one sentence, does this make sense as a hex sticker for an R
 package for LLM APIs?")
-#> Yes, it makes sense if the package emphasizes creativity, 
-#> diversity, or colorful data representation, drawing a 
+#> Yes, it makes sense if the package emphasizes creativity,
+#> diversity, or colorful data representation, drawing a
 #> parallel with Elmer's vibrant and patchwork theme.
 ```
 
 ## You can pass plots to `elmer` too
 
 ```{r}
-#| echo: false 
+#| echo: false
 #| fig-align: 'center'
 #| fig-width: 6
 #| fig-height: 4
@@ -321,12 +321,17 @@ shinyApp(ui, server)
 
 :::: {.columns}
 
-::: {.column}
-Structured output is awesome
+::: {.column width="70%"}
+<br>
+The model will adhere to a defined schema or structure
+
+... which means ...
+
+Structured output makes LLMs [programmable]{.yellow}
 :::
 
-::: {.column}
-![](images/nejm_screenshot.png){.rounded-shadow}
+::: {.column width="30%"}
+![](images/nejm_screenshot.png){.rounded-shadow height="100%"}
 :::
 
 
@@ -337,13 +342,78 @@ Structured output is awesome
 
 ::: {.panel-tabset}
 
+### Schema
+
+```{.r}
+study_info_spec <- type_object(
+  "Information about a medical research study",
+  # Basic study information
+  title = type_string("The title of the study."),
+  authors = type_array(
+    "List of authors with names and affiliations.",
+    items = type_object(
+      name = type_string("Name of the author."),
+      affiliation = type_string("Affiliation of the author.")
+    )
+  ),
+  published_date = type_string("The date the study was published."),
+  journal = type_string("The journal in which the study is published."),
+  condition_addressed = type_string("The medical condition that is being addressed in the study."),
+  study_objective = type_string("The objective of the study."),
+  study_design = type_string("The design of the study."),
+
+  # Participant information
+  participants = type_object(
+    "Details about study participants including criteria.",
+    number = type_number("Number of participants in the study."),
+    inclusion_criteria = type_string("Inclusion criteria for participants."),
+    exclusion_criteria = type_string("Exclusion criteria for participants.")
+  ),
+
+  # Intervention details
+  intervention = type_object(
+    "Details about the interventions conducted in the study.",
+    dosage_groups = type_array(
+      "Dosage groups for the intervention.",
+      items = type_number()
+    ),
+    duration = type_string("Duration of the study intervention.")
+  ),
+
+  # Outcome measures
+  outcome_measures = type_object(
+    "Details about the outcome measures used in the study.",
+    primary_endpoint = type_string("Primary outcome measurement."),
+    secondary_endpoints = type_string("Secondary outcome measurements."),
+    exploratory_measures = type_string("Exploratory outcome measurements.")
+  ),
+
+  # Results
+  results = type_object(
+    "Results of the study.",
+    primary_outcome = type_string("Primary outcome of the study."),
+    secondary_outcomes = type_string("Secondary outcomes of the study."),
+    safety_and_adverse_events = type_string("Overview of safety and adverse events.")
+  ),
+
+  # Discussion
+  discussion = type_object(
+    "Discussion and conclusions of the study.",
+    efficacy_comparison = type_string("Comparison of efficacy with other treatments."),
+    safety_profile = type_string("Safety profile comparison."),
+    implications = type_string("Implications of the study findings.")
+  )
+)
+```
+
+
 ### Result
 
 ```{r}
 readr::read_csv("extracted_study_info.csv",
                 col_types = readr::cols(.default = "c")) |>
-  tidyr::pivot_longer(cols = dplyr::everything()) |> 
-  gt::gt() |> 
+  tidyr::pivot_longer(cols = dplyr::everything()) |>
+  gt::gt() |>
   gtExtras::gt_theme_nytimes()
 ```
 
@@ -377,9 +447,12 @@ elmer::live_browser(chat)
 ![](images/paste-1.png){.rounded-shadow fig-align="center"}
 
 
-## To use a tool, register it first
+## To use a tool, register it first {.smaller}
 
-<br>
+
+::: {.panel-tabset}
+
+### Register Tool
 
 ```{.r}
 chat$register_tool(
@@ -397,10 +470,37 @@ chat$register_tool(
 
 Types: `type_string()`, `type_integer()`, `type_number()`, `type_boolean()`, `type_array()`, `type_object()`, `type_enum()`
 
+### Tool
+
+```{.r}
+get_forecast <- function(city, state) {
+  coords <- get_coordinates(city, state)
+  station <- get_nearest_station(coords$lat, coords$lon)
+
+  response <- request(station$forecast_url) |>
+    req_headers("Accept" = "application/json", "User-Agent" = "R Weather App (contact@example.com)") |>
+    req_perform() |>
+    resp_body_json()
+
+  map(response$properties$periods, ~ {
+    temp <- as.numeric(gsub("[^0-9.-]", "", .x$temperature))
+    list(
+      location = coords$location,
+      coordinates = list(lat = coords$lat, lon = coords$lon),
+      date = .x$startTime,
+      name = .x$name,
+      temp = temp,
+      conditions = .x$shortForecast,
+      detailed_forecast = .x$detailedForecast
+    )
+  })
+}
+```
+:::
 
 ## Sidebots - Why are they so useful? {.center}
 
-. . . 
+. . .
 
 
 
