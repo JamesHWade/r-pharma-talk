@@ -37,7 +37,7 @@ format:
 
 ## [You just saw some awesome AI examples from Joe]{.r-fit-text}
 
-![](images/paste-3.png){.rounded-shadow fig-align="center" width="25%"}
+![Joe's talk a few hours ago](images/paste-3.png){.rounded-shadow fig-align="center" width="25%"}
 
 
 ## New Tools for LLMs {.smaller}
@@ -50,6 +50,7 @@ format:
   - [ ] Structured output
 - [`shinychat`](https://github.com/jcheng5/shinychat)
   - [x] Simple app demo
+  - [x] Fancier app demo (sidebots!)
 :::
 
 ## Let's take a few minutes to dive in {.center}
@@ -397,44 +398,82 @@ The model will adhere to a defined schema or structure
 
 . . .
 
+<br>
+
 ... which means ...
 
 . . .
 
-structured output makes LLMs [programmable]{.yellow}
+<br>
 
-## Stucture Output - An Example
+structured output makes LLMs [programmable]{.yellow}!
+
+## Stucture Output - An Example {auto-animate="true"}
 
 ```{r}
 library(elmer)
-bio <- "Joe Cheng is the Chief Technology Officer at Posit, and the original creator of Shiny. He joined RStudio in 2009 to help create the RStudio IDE, and along the way created many web-related R packages, including htmltools, httpuv, promises, and shinymeta. He lives in the suburbs of Seattle, Washington with his wife Amy, three teenage sons, and numerous bicycles."
+library(tibble)
+library(gt)
+library(dplyr)
+bio_joe <- "Joe Cheng is the Chief Technology Officer at Posit, and the original creator of Shiny. He joined RStudio in 2009 to help create the RStudio IDE, and along the way created many web-related R packages, including htmltools, httpuv, promises, and shinymeta. He lives in the suburbs of Seattle, Washington with his wife Amy, three teenage sons, and numerous bicycles."
+bio_james <- "James Wade is a Research Scientist working in the chemicals and materials science industry where he combines the power of data science with chemistry and materials science. His current projects focus on augmenting materials characterization innovations with statistical analysis, machine learning, and data visualization. James enjoys contributing to a growing data science community both in and outside of work and is a passionate advocate of open-source data science."
 ```
 
 ```{r}
 #| echo: true
-#| cache: true
-chat <- elmer::chat_openai()
+chat <- chat_openai(model = "gpt-4o", echo = FALSE, seed = 1234)
 bio_spec <- type_object(
-  "Extract bio details",
+  "Person",
   name = type_string("Name of the person"),
   profession = type_string("Profession"),
   interests = type_string("Interests"),
-  favorite_pkg = type_string("Favorite R package")
+  favorite_pkg = type_string("Favorite R package, say 'Unknown' if none")
 )
-chat$extract_data(bio, spec = bio_spec)
 ```
 
+## Stucture Output - An Example {auto-animate="true"}
+
+```{r}
+#| echo: true
+chat <- chat_openai(model = "gpt-4o", echo = FALSE, seed = 1234)
+bio_spec <- type_object(
+  "Person",
+  name = type_string("Name of the person"),
+  profession = type_string("Profession"),
+  interests = type_string("Interests"),
+  favorite_pkg = type_string("Favorite R package, say 'Unknown' if none")
+)
+joe <- chat$extract_data(bio_joe, spec = bio_spec)
+joe
+```
+
+## Stucture Output - An Example {auto-animate="true"}
+
+```{r}
+#| echo: true
+chat <- chat_openai(model = "gpt-4o", echo = FALSE, seed = 1234)
+bio_spec <- type_object(
+  "Person",
+  name = type_string("Name of the person"),
+  profession = type_string("Profession"),
+  interests = type_string("Interests"),
+  favorite_pkg = type_string("Favorite R package, say 'Unknown' if none")
+)
+
+bind_rows(
+  chat$extract_data(bio_joe, spec = bio_spec) |> as_tibble(),  # joe's bio
+  chat$extract_data(bio_james, spec = bio_spec) |> as_tibble() # my bio
+) |> 
+  gt() |> 
+  opt_stylize(style = 3)
+```
 
 ## Structured Output
 
 ::::: columns
 ::: {.column width="60%"}
 <br>
-The model will adhere to a defined schema or structure
-
-... which means ...
-
-structured output makes LLMs [programmable]{.yellow}
+LLMs are _fantastic_ at converting unstructured text to [structured data]{.yellow}.
 :::
 
 ::: {.column width="40%"}
@@ -572,4 +611,4 @@ extracted_tbl <- studies_to_table(extracted_data) # convert to table
 
 ## [Sidebots - Why are they so useful?]{.r-fit-text style="color: rgb(15, 56, 154); background-color: rgba(255, 255, 255, .7);"} {.center background-image="images/r-sidebot.png"}
 
-. . .
+## Sidebots
