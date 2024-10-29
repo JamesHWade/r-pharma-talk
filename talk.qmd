@@ -35,20 +35,20 @@ format:
 
 ![Joe Cheng's talk "Shiny x AI" at posit::conf(2024)](images/sidebot.png){.rounded-shadow}
 
-## [You just saw some awesome AI examples from Joe]{.r-fit-text}
+## [You just saw some awesome AI examples from Joe]{.r-fit-text} {.center}
 
 ![Joe's talk a few hours ago](images/paste-3.png){.rounded-shadow fig-align="center" width="450" height="256"}
 
-## New Tools for LLMs {.smaller}
+## New Tools for LLMs from Posit {.smaller}
 
 ::: {nonincremental}
--   [x] [`elmer`](https://github.com/hadley/elmer)
-    -   Basic API calls across many service
+-   [`elmer`](https://github.com/hadley/elmer)
+    -   [x] Basic API calls across many service
     -   [ ] Multimodal chats: text + images
     -   [x] Tool calling
     -   [ ] Structured output
--   [x] [`shinychat`](https://github.com/jcheng5/shinychat)
-    -   Simple app demo
+-   [`shinychat`](https://github.com/jcheng5/shinychat)
+    -   [x] Simple app demo
     -   [x] Fancier app demo (sidebots!)
 :::
 
@@ -124,7 +124,7 @@ shinyApp(ui, server)
 
 ## Let's (almost) Build a Chatbot {auto-animate="true"}
 
-![](images/clipboard-3132120658.png){.rounded-shadow fig.align="center"}
+![](images/clipboard-3132120658.png){.rounded-shadow fig-align="center"}
 
 ## Meet `elmer` {auto-animate="true"}
 
@@ -339,7 +339,7 @@ An example with the weather:
 elmer::live_browser(chat)
 ```
 
-![](images/paste-1.png){.rounded-shadow fig-align="center"}
+![](images/clipboard-374887087.png){.rounded-shadow fig-align="center"}
 
 ## To use a tool, register it first {.smaller}
 
