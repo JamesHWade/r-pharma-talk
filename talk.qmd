@@ -13,11 +13,11 @@ format:
     theme: [default, custom.scss]
 ---
 
-## AI Coding Assistance {.center}
+## AI Coding Assistants {.center}
 
 <br>
 
-:::::: columns
+::: columns
 ::: {.column width="33%"}
 ![[`chattr`](https://github.com/mlverse/chattr)](images/chattr.png){height="250px"}
 :::
@@ -29,7 +29,7 @@ format:
 ::: {.column width="33%"}
 ![[Github Copilot](https://github.com/features/copilot)](images/github-copilot.png){height="250px"}
 :::
-::::::
+:::
 
 ## Sidebots
 
@@ -37,27 +37,26 @@ format:
 
 ## [You just saw some awesome AI examples from Joe]{.r-fit-text}
 
-![Joe's talk a few hours ago](images/paste-3.png){.rounded-shadow fig-align="center" width="25%"}
-
+![Joe's talk a few hours ago](images/paste-3.png){.rounded-shadow fig-align="center" width="450" height="256"}
 
 ## New Tools for LLMs {.smaller}
 
 ::: {nonincremental}
-- [`elmer`](https://github.com/hadley/elmer)
-  - [x] Basic API calls across many service
-  - [ ] Multimodal chats: text + images
-  - [x] Tool calling
-  - [ ] Structured output
-- [`shinychat`](https://github.com/jcheng5/shinychat)
-  - [x] Simple app demo
-  - [x] Fancier app demo (sidebots!)
+-   [x] [`elmer`](https://github.com/hadley/elmer)
+    -   Basic API calls across many service
+    -   [ ] Multimodal chats: text + images
+    -   [x] Tool calling
+    -   [ ] Structured output
+-   [x] [`shinychat`](https://github.com/jcheng5/shinychat)
+    -   Simple app demo
+    -   [x] Fancier app demo (sidebots!)
 :::
 
 ## Let's take a few minutes to dive in {.center}
 
 ## Advice from Joe {auto-animate="true"}
 
-::::: columns
+::: columns
 ::: {.column width="50%"}
 > Being a mere consumer of Copilot and ChatGPT is not enough to have a well-informed opinion of the potential of LLMs (you will miss out on structured output and tool calls).
 >
@@ -67,23 +66,23 @@ format:
 ::: {.column width="50%"}
 ![](images/robot-assistant.jpeg){.rounded-shadow}
 :::
-:::::
+:::
 
 ## Advice from Joe {auto-animate="true"}
 
 <br>
 
-:::: columns
+::: columns
 ::: {.column width="40%"}
 ![Stochastic Parrot](images/stochastic_parrot.jpeg){.rounded-shadow}
 :::
-::::
+:::
 
 ## Advice from Joe {auto-animate="true"}
 
 <br>
 
-:::::: columns
+::: columns
 ::: {.column width="40%"}
 ![Stochastic Parrot](images/stochastic_parrot.jpeg){.rounded-shadow}
 :::
@@ -95,13 +94,15 @@ format:
 ::: {.column width="40%"}
 ![Machines that Reason](images/machine-reasoning.jpeg){.rounded-shadow}
 :::
-::::::
+:::
 
 ## Let's (almost) Build a Chatbot {auto-animate="true"}
 
-## Let's (almost) Build a Chatbot {auto-animate="true" auto-animate-easing="ease-in-out"}
+## Let's (almost) Build a Chatbot {auto-animate="true"}
 
-``` {.r code-line-numbers="|3|6|10-11|12-14"}
+<!-- ``` {.r code-line-numbers="|3|6|10-11|12-14"} -->
+
+``` r
 library(shiny)
 library(bslib)
 library(shinychat) # pak::pak("jcheng5/shinychat")
@@ -123,11 +124,11 @@ shinyApp(ui, server)
 
 ## Let's (almost) Build a Chatbot {auto-animate="true"}
 
-![A very simple chatbot](images/simple-chatbot.png){.rounded-shadow width="50%"}
+![](images/clipboard-3132120658.png){.rounded-shadow fig.align="center"}
 
 ## Meet `elmer` {auto-animate="true"}
 
-![](images/elmer.png){.absolute top="-40" left="800" width="125"}
+![](images/elmer.png){.absolute top="-25" left="800" width="125"}
 
 . . .
 
@@ -140,7 +141,7 @@ chat <- chat_openai()         # requires api key
 
 ## Meet `elmer` {auto-animate="true"}
 
-![](images/elmer.png){.absolute top="-40" left="800" width="125"}
+![](images/elmer.png){.absolute top="-25" left="800" width="125"}
 
 <br>
 
@@ -153,7 +154,7 @@ chat$chat("Hello there")
 
 ## Meet `elmer` {auto-animate="true"}
 
-![](images/elmer.png){.absolute top="-40" left="800" width="125"}
+![](images/elmer.png){.absolute top="-25" left="800" width="125"}
 
 <br>
 
@@ -168,7 +169,7 @@ chat$chat("Tell me a pithy coding joke.")
 
 ## Meet `elmer` {auto-animate="true"}
 
-![](images/elmer.png){.absolute top="-40" left="800" width="125"}
+![](images/elmer.png){.absolute top="-25" left="800" width="125"}
 
 <br>
 
@@ -186,7 +187,7 @@ chat <- chat_claude()         # requires api key
 
 ## Meet `elmer` {auto-animate="true"}
 
-![](images/elmer.png){.absolute top="-40" left="800" width="125"}
+![](images/elmer.png){.absolute top="-25" left="800" width="125"}
 
 <br>
 
@@ -206,7 +207,7 @@ chat$chat("Please solve all my shiny app problems")
 
 ## More fun with `elmer` {auto-animate="true"}
 
-![](images/elmer.png){.absolute top="-40" left="800" width="125"}
+![](images/elmer.png){.absolute top="-25" left="800" width="125"}
 
 We can easily pass images.
 
@@ -220,7 +221,7 @@ chat$chat("What am I looking at?",
 
 ## More fun with `elmer` {auto-animate="true"}
 
-![](images/elmer.png){.absolute top="-40" left="800" width="125"}
+![](images/elmer.png){.absolute top="-25" left="800" width="125"}
 
 We can easily pass images.
 
@@ -239,7 +240,7 @@ chat$chat("What am I looking at?",
 
 ## More fun with `elmer` {auto-animate="true"}
 
-![](images/elmer.png){.absolute top="-40" left="800" width="125"}
+![](images/elmer.png){.absolute top="-25" left="800" width="125"}
 
 We can easily pass images.
 
@@ -294,7 +295,7 @@ chat$chat("In a few words, interpret this plot", content_image_plot())
 
 ## Let's Build (an actual) Chatbot {auto-animate="true" auto-animate-easing="ease-in-out"}
 
-``` {.r code-line-numbers="|8-11|12-15"}
+``` {.r code-line-numbers="|8-15"}
 library(shiny)
 
 ui <- bslib::page_fluid(
@@ -317,7 +318,7 @@ shinyApp(ui, server)
 
 ## But let's remember Joe's advice... {.center auto-animate="true"}
 
-::::: columns
+::: columns
 ::: {.column width="50%"}
 > Being a mere consumer of Copilot and ChatGPT is not enough to have a well-ifcormed opinion of the potential of LLMs (you will miss out on [structured output]{.yellow} and [tool calls]{.yellow}).
 >
@@ -327,7 +328,7 @@ shinyApp(ui, server)
 ::: {.column width="50%"}
 ![](images/robot-assistant.jpeg){.rounded-shadow}
 :::
-:::::
+:::
 
 ## Tool Calling
 
@@ -388,7 +389,6 @@ get_forecast <- function(city, state) {
 }
 ```
 :::
-
 
 ## Structured Output
 
@@ -470,24 +470,22 @@ bind_rows(
 
 ## Structured Output
 
-::::: columns
+::: columns
 ::: {.column width="60%"}
-<br>
-LLMs are _fantastic_ at converting unstructured text to [structured data]{.yellow}.
+<br> LLMs are *fantastic* at converting unstructured text to [structured data]{.yellow}.
 :::
 
 ::: {.column width="40%"}
 ![](images/nejm_screenshot.png){.rounded-shadow height="100%"}
 :::
-:::::
+:::
 
 ## Structured Output {.scrollable}
 
 ::: panel-tabset
-
 ### Schema
 
-```
+```         
 study_info_spec/
 ├── title (string)
 ├── authors [array]
