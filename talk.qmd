@@ -3,10 +3,6 @@ title: "Integrating AI Assistants into Shiny Apps"
 subtitle: "Simplify Development and Enhance User Experience"
 author: "James Wade"
 abstract: "Incorporating AI assistants powered by large language models into your Shiny applications can streamline development and significantly improve user experience. This presentation will highlight practical patterns for integrating these assistants, making app building easier and more efficient. We will also explore emerging tools that expand the possibilities of AI integration, enabling you to create more interactive and intelligent Shiny apps."
-title-slide-attributes:
-  data-background-image: "images/posit-academy-robot-classroom.jpeg"
-  data-background-size: contain
-  data-background-opacity: "0.3"
 footer: "R/Pharma 2024"
 format:
   revealjs:
@@ -39,9 +35,11 @@ format:
 
 ![Joe Cheng's talk "Shiny x AI" at posit::conf(2024)](images/sidebot.png){.rounded-shadow}
 
-## Advice from Joe
+## [You just saw some awesome AI examples from Joe]{.r-fit-text}
 
-![](images/advice-from-joe.png){.rounded-shadow}
+![](images/paste-3.png){.rounded-shadow fig-align="center" width="25%"}
+
+## Let's take a few minutes to dive in {.center}
 
 ## Advice from Joe {auto-animate="true"}
 
@@ -102,7 +100,7 @@ server <- function(input, output, session) {
   greeting <- "Hello there. Let's chat!"
   chat_append("chat", greeting)
   observeEvent(input$chat_user_input, {
-    chat_append("chat", paste0("You said \"", input$chat_user_input, "\""))
+    chat_append("chat", paste0("You said: ", input$chat_user_input))
   })
 }
 
@@ -317,34 +315,123 @@ shinyApp(ui, server)
 :::
 :::::
 
+## Tool Calling
+
+An example with the weather:
+
+``` r
+# simple chat interface
+elmer::live_browser(chat)
+```
+
+![](images/paste-1.png){.rounded-shadow fig-align="center"}
+
+## To use a tool, register it first {.smaller}
+
+::: panel-tabset
+### Register Tool
+
+``` r
+chat$register_tool(
+  tool(
+  .fun = get_forecast,
+  .description = "Gets 7-day weather forecast for a city",
+  # typed arguments
+  city = type_string("The name of the city"),
+  state = type_string("State name or abbreviation (required)")
+  )
+)
+```
+
+<br>
+
+Types: `type_string()`, `type_integer()`, `type_number()`, `type_boolean()`, `type_array()`, `type_object()`, `type_enum()`
+
+### Tool
+
+``` r
+get_forecast <- function(city, state) {
+  coords <- get_coordinates(city, state)
+  station <- get_nearest_station(coords$lat, coords$lon)
+
+  response <- request(station$forecast_url) |>
+    req_headers("Accept" = "application/json", "User-Agent" = "R Weather App (contact@example.com)") |>
+    req_perform() |>
+    resp_body_json()
+
+  map(response$properties$periods, ~ {
+    temp <- as.numeric(gsub("[^0-9.-]", "", .x$temperature))
+    list(
+      location = coords$location,
+      coordinates = list(lat = coords$lat, lon = coords$lon),
+      date = .x$startTime,
+      name = .x$name,
+      temp = temp,
+      conditions = .x$shortForecast,
+      detailed_forecast = .x$detailedForecast
+    )
+  })
+}
+```
+:::
+
 ## Structured Output
 
-:::: {.columns}
-
-::: {.column width="70%"}
-<br>
-The model will adhere to a defined schema or structure
+::::: columns
+::: {.column width="60%"}
+<br> The model will adhere to a defined schema or structure
 
 ... which means ...
 
-Structured output makes LLMs [programmable]{.yellow}
+structured output makes LLMs [programmable]{.yellow}
 :::
 
-::: {.column width="30%"}
+::: {.column width="40%"}
 ![](images/nejm_screenshot.png){.rounded-shadow height="100%"}
 :::
-
-
-::::
-
+:::::
 
 ## Structured Output {.scrollable}
 
-::: {.panel-tabset}
-
+::: panel-tabset
 ### Schema
 
-```{.r}
+```         
+study_info_spec/
+├── title (string)
+├── authors [array]
+│   └── items
+│       ├── name (string)
+│       └── affiliation (string)
+├── published_date (string)
+├── journal (string)
+├── condition_addressed (string)
+├── study_objective (string)
+├── study_design (string)
+├── participants/
+│   ├── number (number)
+│   ├── inclusion_criteria (string)
+│   └── exclusion_criteria (string)
+├── intervention/
+│   ├── dosage_groups [array<number>]
+│   └── duration (string)
+├── outcome_measures/
+│   ├── primary_endpoint (string)
+│   ├── secondary_endpoints (string)
+│   └── exploratory_measures (string)
+├── results/
+│   ├── primary_outcome (string)
+│   ├── secondary_outcomes (string)
+│   └── safety_and_adverse_events (string)
+└── discussion/
+├── efficacy_comparison (string)
+├── safety_profile (string)
+└── implications (string)
+```
+
+### Schema - Code
+
+``` r
 study_info_spec <- type_object(
   "Information about a medical research study",
   # Basic study information
@@ -406,7 +493,6 @@ study_info_spec <- type_object(
 )
 ```
 
-
 ### Result
 
 ```{r}
@@ -414,118 +500,24 @@ readr::read_csv("extracted_study_info.csv",
                 col_types = readr::cols(.default = "c")) |>
   tidyr::pivot_longer(cols = dplyr::everything()) |>
   gt::gt() |>
-  gtExtras::gt_theme_nytimes()
+  gt::opt_stylize(style = 3)
 ```
 
 ### Code
 
-```{.r}
-chat <- chat_openai(model = "gpt-4o")                  #<1>
-text <- read_pdf(file_path = "NEJMoa2302392.pdf")      #<2>
-extracted_data <- chat$extract_data(text, spec = study_info_spec) #<3>
-extracted_tbl <- studies_to_table(extracted_data)      #<4>
-```
-
-1. Create a chat object
-2. Extract text with `read_pdf` helper function
-3. Structured output call with custom specifiction
-4. Convert to a table
-
-:::
-
-
-
-## Tool Calling
-
-An example with the weather:
-
-```{.r}
-# simple chat interface
-elmer::live_browser(chat)
-```
-
-![](images/paste-1.png){.rounded-shadow fig-align="center"}
-
-
-## To use a tool, register it first {.smaller}
-
-
-::: {.panel-tabset}
-
-### Register Tool
-
-```{.r}
-chat$register_tool(
-  tool(
-  .fun = get_forecast,
-  .description = "Gets 7-day weather forecast for a city",
-  # typed arguments
-  city = type_string("The name of the city"),
-  state = type_string("State name or abbreviation (required)")
-  )
-)
-```
-
 <br>
 
-Types: `type_string()`, `type_integer()`, `type_number()`, `type_boolean()`, `type_array()`, `type_object()`, `type_enum()`
-
-### Tool
-
-```{.r}
-get_forecast <- function(city, state) {
-  coords <- get_coordinates(city, state)
-  station <- get_nearest_station(coords$lat, coords$lon)
-
-  response <- request(station$forecast_url) |>
-    req_headers("Accept" = "application/json", "User-Agent" = "R Weather App (contact@example.com)") |>
-    req_perform() |>
-    resp_body_json()
-
-  map(response$properties$periods, ~ {
-    temp <- as.numeric(gsub("[^0-9.-]", "", .x$temperature))
-    list(
-      location = coords$location,
-      coordinates = list(lat = coords$lat, lon = coords$lon),
-      date = .x$startTime,
-      name = .x$name,
-      temp = temp,
-      conditions = .x$shortForecast,
-      detailed_forecast = .x$detailedForecast
-    )
-  })
-}
+``` r
+chat <- chat_openai(model = "gpt-4o")             # create chat object
+text <- read_pdf(file_path = "NEJMoa2302392.pdf") # extrace text from pdf
+extracted_data <- chat$extract_data(              # extra_data call     
+  text,                                   
+  spec = study_info_spec                          # pass custom spec
+)
+extracted_tbl <- studies_to_table(extracted_data) # convert to table
 ```
 :::
 
-## Sidebots - Why are they so useful? {.center}
+## [Sidebots - Why are they so useful?]{.r-fit-text style="color: rgb(15, 56, 154); background-color: rgba(255, 255, 255, .7);"} {.center background-image="images/r-sidebot.png"}
 
 . . .
-
-
-
-
-
-## [🙏 Thank you to those who make it happen! 🙏]{.r-fit-text} {.center .smaller}
-
-::::: columns
-::: {.column width="50%"}
--   [Tony Sokolov]{.yellow}
--   Michael Hausinger
--   Lynette Naler
--   Dow (Apprentice) Mentors
--   Dow's Academy Learners
--   Dow Leaders
-:::
-
-::: {.column width="50%"}
--   Lindsay Lintelman
--   Kristin Bott
--   Ibi Togun
--   Brian Law
--   Eric Pite
--   *Many* Academy Mentors
-:::
-:::::
-
-Slides: <https://jameshwade.github.io/posit-conf-2024>
