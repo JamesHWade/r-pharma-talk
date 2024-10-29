@@ -39,6 +39,19 @@ format:
 
 ![](images/paste-3.png){.rounded-shadow fig-align="center" width="25%"}
 
+
+## New Tools for LLMs {.smaller}
+
+::: {nonincremental}
+- [`elmer`](https://github.com/hadley/elmer)
+  - [x] Basic API calls across many service
+  - [ ] Multimodal chats: text + images
+  - [x] Tool calling
+  - [ ] Structured output
+- [`shinychat`](https://github.com/jcheng5/shinychat)
+  - [x] Simple app demo
+:::
+
 ## Let's take a few minutes to dive in {.center}
 
 ## Advice from Joe {auto-animate="true"}
@@ -375,11 +388,49 @@ get_forecast <- function(city, state) {
 ```
 :::
 
+
+## Structured Output
+
+<br>
+
+The model will adhere to a defined schema or structure
+
+. . .
+
+... which means ...
+
+. . .
+
+structured output makes LLMs [programmable]{.yellow}
+
+## Stucture Output - An Example
+
+```{r}
+library(elmer)
+bio <- "Joe Cheng is the Chief Technology Officer at Posit, and the original creator of Shiny. He joined RStudio in 2009 to help create the RStudio IDE, and along the way created many web-related R packages, including htmltools, httpuv, promises, and shinymeta. He lives in the suburbs of Seattle, Washington with his wife Amy, three teenage sons, and numerous bicycles."
+```
+
+```{r}
+#| echo: true
+#| cache: true
+chat <- elmer::chat_openai()
+bio_spec <- type_object(
+  "Extract bio details",
+  name = type_string("Name of the person"),
+  profession = type_string("Profession"),
+  interests = type_string("Interests"),
+  favorite_pkg = type_string("Favorite R package")
+)
+chat$extract_data(bio, spec = bio_spec)
+```
+
+
 ## Structured Output
 
 ::::: columns
 ::: {.column width="60%"}
-<br> The model will adhere to a defined schema or structure
+<br>
+The model will adhere to a defined schema or structure
 
 ... which means ...
 
@@ -394,9 +445,10 @@ structured output makes LLMs [programmable]{.yellow}
 ## Structured Output {.scrollable}
 
 ::: panel-tabset
+
 ### Schema
 
-```         
+```
 study_info_spec/
 ├── title (string)
 ├── authors [array]
@@ -510,8 +562,8 @@ readr::read_csv("extracted_study_info.csv",
 ``` r
 chat <- chat_openai(model = "gpt-4o")             # create chat object
 text <- read_pdf(file_path = "NEJMoa2302392.pdf") # extrace text from pdf
-extracted_data <- chat$extract_data(              # extra_data call     
-  text,                                   
+extracted_data <- chat$extract_data(              # extra_data call
+  text,
   spec = study_info_spec                          # pass custom spec
 )
 extracted_tbl <- studies_to_table(extracted_data) # convert to table
