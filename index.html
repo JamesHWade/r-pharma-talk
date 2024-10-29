@@ -403,8 +403,8 @@ James Wade
 </div>
 
 </section>
-<section id="ai-coding-assistance" class="slide level2 center">
-<h2>AI Coding Assistance</h2>
+<section id="ai-coding-assistants" class="slide level2 center">
+<h2>AI Coding Assistants</h2>
 <p><br></p>
 <div class="columns">
 <div class="column" style="width:33%;">
@@ -435,12 +435,17 @@ James Wade
 <h2>Sidebots</h2>
 
 <img data-src="images/sidebot.png" class="rounded-shadow r-stretch quarto-figure-center"><p class="caption">Joe Cheng’s talk “Shiny x AI” at posit::conf(2024)</p></section>
-<section id="you-just-saw-some-awesome-ai-examples-from-joe" class="slide level2">
+<section id="you-just-saw-some-awesome-ai-examples-from-joe" class="slide level2 center">
 <h2><span class="r-fit-text">You just saw some awesome AI examples from Joe</span></h2>
-
-<img data-src="images/paste-3.png" class="rounded-shadow r-stretch quarto-figure-center" style="width:25.0%"><p class="caption">Joe’s talk a few hours ago</p></section>
-<section id="new-tools-for-llms" class="slide level2 smaller">
-<h2>New Tools for LLMs</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/paste-3.png" class="rounded-shadow" width="450" height="256"></p>
+<figcaption>Joe’s talk a few hours ago</figcaption>
+</figure>
+</div>
+</section>
+<section id="new-tools-for-llms-from-posit" class="slide level2 smaller">
+<h2>New Tools for LLMs from Posit</h2>
 <div class="{nonincremental}">
 <ul>
 <li><a href="https://github.com/hadley/elmer"><code>elmer</code></a>
@@ -514,9 +519,10 @@ James Wade
 <section id="lets-almost-build-a-chatbot" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Let’s (almost) Build a Chatbot</h2>
 </section>
-<section id="lets-almost-build-a-chatbot-1" class="slide level2" data-auto-animate="true" data-auto-animate-easing="ease-in-out">
+<section id="lets-almost-build-a-chatbot-1" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Let’s (almost) Build a Chatbot</h2>
-<div class="sourceCode" id="cb1" data-code-line-numbers="|3|6|10-11|12-14"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb1-1" class="hljs-ln-code"><a href=""></a><span class="fu">library</span>(shiny)</span>
+<!-- ``` {.r code-line-numbers="|3|6|10-11|12-14"} -->
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb1-1" class="hljs-ln-code"><a href=""></a><span class="fu">library</span>(shiny)</span>
 <span id="cb1-2" class="hljs-ln-code"><a href=""></a><span class="fu">library</span>(bslib)</span>
 <span id="cb1-3" class="hljs-ln-code"><a href=""></a><span class="fu">library</span>(shinychat) <span class="co"># pak::pak("jcheng5/shinychat")</span></span>
 <span id="cb1-4" class="hljs-ln-code"><a href=""></a></span>
@@ -537,10 +543,10 @@ James Wade
 <section id="lets-almost-build-a-chatbot-2" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Let’s (almost) Build a Chatbot</h2>
 
-<img data-src="images/simple-chatbot.png" class="rounded-shadow r-stretch quarto-figure-center" style="width:50.0%"><p class="caption">A very simple chatbot</p></section>
+<img data-src="images/clipboard-3132120658.png" class="rounded-shadow quarto-figure quarto-figure-center r-stretch"></section>
 <section id="meet-elmer" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Meet <code>elmer</code></h2>
-<p><img data-src="images/elmer.png" class="absolute" style="top: -40px; left: 800px; width: 125px; "></p>
+<p><img data-src="images/elmer.png" class="absolute" style="top: -25px; left: 800px; width: 125px; "></p>
 <div class="fragment">
 <p><br></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb2-1" class="hljs-ln-code"><a href=""></a><span class="fu">library</span>(elmer)                <span class="co"># pak::pak("hadley/elmer")</span></span>
@@ -549,7 +555,7 @@ James Wade
 </section>
 <section id="meet-elmer-1" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Meet <code>elmer</code></h2>
-<p><img data-src="images/elmer.png" class="absolute" style="top: -40px; left: 800px; width: 125px; "></p>
+<p><img data-src="images/elmer.png" class="absolute" style="top: -25px; left: 800px; width: 125px; "></p>
 <p><br></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb3-1" class="hljs-ln-code"><a href=""></a><span class="fu">library</span>(elmer)                <span class="co"># pak::pak("hadley/elmer")</span></span>
 <span id="cb3-2" class="hljs-ln-code"><a href=""></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openai</span>()         <span class="co"># requires api key</span></span>
@@ -558,7 +564,7 @@ James Wade
 </section>
 <section id="meet-elmer-2" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Meet <code>elmer</code></h2>
-<p><img data-src="images/elmer.png" class="absolute" style="top: -40px; left: 800px; width: 125px; "></p>
+<p><img data-src="images/elmer.png" class="absolute" style="top: -25px; left: 800px; width: 125px; "></p>
 <p><br></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb4-1" class="hljs-ln-code"><a href=""></a><span class="fu">library</span>(elmer)                <span class="co"># pak::pak("hadley/elmer")</span></span>
 <span id="cb4-2" class="hljs-ln-code"><a href=""></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openai</span>()         <span class="co"># requires api key</span></span>
@@ -569,7 +575,7 @@ James Wade
 </section>
 <section id="meet-elmer-3" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Meet <code>elmer</code></h2>
-<p><img data-src="images/elmer.png" class="absolute" style="top: -40px; left: 800px; width: 125px; "></p>
+<p><img data-src="images/elmer.png" class="absolute" style="top: -25px; left: 800px; width: 125px; "></p>
 <p><br></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb5-1" class="hljs-ln-code"><a href=""></a><span class="fu">library</span>(elmer)                <span class="co"># pak::pak("hadley/elmer")</span></span>
 <span id="cb5-2" class="hljs-ln-code"><a href=""></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openai</span>()         <span class="co"># requires api key</span></span>
@@ -583,7 +589,7 @@ James Wade
 </section>
 <section id="meet-elmer-4" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Meet <code>elmer</code></h2>
-<p><img data-src="images/elmer.png" class="absolute" style="top: -40px; left: 800px; width: 125px; "></p>
+<p><img data-src="images/elmer.png" class="absolute" style="top: -25px; left: 800px; width: 125px; "></p>
 <p><br></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb6-1" class="hljs-ln-code"><a href=""></a><span class="fu">library</span>(elmer)                <span class="co"># pak::pak("hadley/elmer")</span></span>
 <span id="cb6-2" class="hljs-ln-code"><a href=""></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openai</span>()         <span class="co"># requires api key</span></span>
@@ -599,7 +605,7 @@ James Wade
 </section>
 <section id="more-fun-with-elmer" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">More fun with <code>elmer</code></h2>
-<p><img data-src="images/elmer.png" class="absolute" style="top: -40px; left: 800px; width: 125px; "></p>
+<p><img data-src="images/elmer.png" class="absolute" style="top: -25px; left: 800px; width: 125px; "></p>
 <p>We can easily pass images.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb7-1" class="hljs-ln-code"><a href=""></a><span class="fu">library</span>(elmer)</span>
 <span id="cb7-2" class="hljs-ln-code"><a href=""></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openai</span>(<span class="at">model =</span> <span class="st">"gpt-4o"</span>, <span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
@@ -609,7 +615,7 @@ James Wade
 </section>
 <section id="more-fun-with-elmer-1" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">More fun with <code>elmer</code></h2>
-<p><img data-src="images/elmer.png" class="absolute" style="top: -40px; left: 800px; width: 125px; "></p>
+<p><img data-src="images/elmer.png" class="absolute" style="top: -25px; left: 800px; width: 125px; "></p>
 <p>We can easily pass images.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb8-1" class="hljs-ln-code"><a href=""></a><span class="fu">library</span>(elmer)</span>
 <span id="cb8-2" class="hljs-ln-code"><a href=""></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openai</span>(<span class="at">model =</span> <span class="st">"gpt-4o"</span>, <span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
@@ -624,7 +630,7 @@ James Wade
 </section>
 <section id="more-fun-with-elmer-2" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">More fun with <code>elmer</code></h2>
-<p><img data-src="images/elmer.png" class="absolute" style="top: -40px; left: 800px; width: 125px; "></p>
+<p><img data-src="images/elmer.png" class="absolute" style="top: -25px; left: 800px; width: 125px; "></p>
 <p>We can easily pass images.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">library</span>(elmer)</span>
 <span id="cb9-2"><a href=""></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openai</span>(<span class="at">model =</span> <span class="st">"gpt-4o"</span>, <span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
@@ -651,7 +657,7 @@ James Wade
 </section>
 <section id="lets-build-an-actual-chatbot" class="slide level2" data-auto-animate="true" data-auto-animate-easing="ease-in-out">
 <h2 data-id="quarto-animate-title">Let’s Build (an actual) Chatbot</h2>
-<div class="sourceCode" id="cb12" data-code-line-numbers="|8-11|12-15"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb12-1" class="hljs-ln-code"><a href=""></a><span class="fu">library</span>(shiny)</span>
+<div class="sourceCode" id="cb12" data-code-line-numbers="|8-15"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb12-1" class="hljs-ln-code"><a href=""></a><span class="fu">library</span>(shiny)</span>
 <span id="cb12-2" class="hljs-ln-code"><a href=""></a></span>
 <span id="cb12-3" class="hljs-ln-code"><a href=""></a>ui <span class="ot">&lt;-</span> bslib<span class="sc">::</span><span class="fu">page_fluid</span>(</span>
 <span id="cb12-4" class="hljs-ln-code"><a href=""></a>  shinychat<span class="sc">::</span><span class="fu">chat_ui</span>(<span class="st">"chat"</span>)</span>
@@ -689,7 +695,7 @@ James Wade
 <div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="co"># simple chat interface</span></span>
 <span id="cb13-2"><a href=""></a>elmer<span class="sc">::</span><span class="fu">live_browser</span>(chat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
-<img data-src="images/paste-1.png" class="rounded-shadow quarto-figure quarto-figure-center r-stretch"></section>
+<img data-src="images/clipboard-374887087.png" class="rounded-shadow quarto-figure quarto-figure-center r-stretch"></section>
 <section id="to-use-a-tool-register-it-first" class="slide level2 smaller">
 <h2>To use a tool, register it first</h2>
 <div class="panel-tabset">
@@ -1269,7 +1275,7 @@ $favorite_pkg
 <tr class="even">
 <td class="gt_row gt_left gt_striped" headers="name">James Wade</td>
 <td class="gt_row gt_left gt_striped" headers="profession">Research Scientist</td>
-<td class="gt_row gt_left gt_striped" headers="interests">Open-source data science, materials characterization, machine learning, data visualization</td>
+<td class="gt_row gt_left gt_striped" headers="interests">Data science, chemistry, materials science, machine learning, data visualization, open-source contributions</td>
 <td class="gt_row gt_left gt_striped" headers="favorite_pkg">Unknown</td>
 </tr>
 </tbody>
