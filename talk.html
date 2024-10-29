@@ -539,11 +539,9 @@ James Wade
 <span id="cb1-15" class="hljs-ln-code"><a href=""></a>}</span>
 <span id="cb1-16" class="hljs-ln-code"><a href=""></a></span>
 <span id="cb1-17" class="hljs-ln-code"><a href=""></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<!-- ## Let's (almost) Build a Chatbot {auto-animate="true"} -->
+<!-- ![](images/clipboard-3132120658.png){.rounded-shadow fig-align="center"} -->
 </section>
-<section id="lets-almost-build-a-chatbot-2" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Let’s (almost) Build a Chatbot</h2>
-
-<img data-src="images/clipboard-3132120658.png" class="rounded-shadow quarto-figure quarto-figure-center r-stretch"></section>
 <section id="meet-elmer" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Meet <code>elmer</code></h2>
 <p><img data-src="images/elmer.png" class="absolute" style="top: -25px; left: 800px; width: 125px; "></p>
@@ -652,7 +650,7 @@ James Wade
 <section id="you-can-pass-plots-to-elmer-too" class="slide level2">
 <h2>You can pass plots to <code>elmer</code> too</h2>
 
-<img data-src="talk_files/figure-revealjs/unnamed-chunk-1-1.png" class="rounded-shadow quarto-figure quarto-figure-center r-stretch" width="576"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"In a few words, interpret this plot"</span>, <span class="fu">content_image_plot</span>())</span>
+<img data-src="talk_files/figure-revealjs/unnamed-chunk-1-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"In a few words, interpret this plot"</span>, <span class="fu">content_image_plot</span>())</span>
 <span id="cb11-2"><a href=""></a><span class="co">#&gt; No significant trend; random distribution around the mean.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="lets-build-an-actual-chatbot" class="slide level2" data-auto-animate="true" data-auto-animate-easing="ease-in-out">
@@ -778,8 +776,22 @@ James Wade
 <span id="cb17-6" class="hljs-ln-code"><a href=""></a>  <span class="at">interests =</span> <span class="fu">type_string</span>(<span class="st">"Interests"</span>),</span>
 <span id="cb17-7" class="hljs-ln-code"><a href=""></a>  <span class="at">favorite_pkg =</span> <span class="fu">type_string</span>(<span class="st">"Favorite R package, say 'Unknown' if none"</span>)</span>
 <span id="cb17-8" class="hljs-ln-code"><a href=""></a>)</span>
-<span id="cb17-9" class="hljs-ln-code"><a href=""></a>joe <span class="ot">&lt;-</span> chat<span class="sc">$</span><span class="fu">extract_data</span>(bio_joe, <span class="at">spec =</span> bio_spec)</span>
-<span id="cb17-10" class="hljs-ln-code"><a href=""></a>joe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-9" class="hljs-ln-code"><a href=""></a>joe <span class="ot">&lt;-</span> chat<span class="sc">$</span><span class="fu">extract_data</span>(bio_joe, <span class="at">spec =</span> bio_spec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="stucture-output---an-example-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Stucture Output - An Example</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb18-1" class="hljs-ln-code"><a href=""></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openai</span>(<span class="at">model =</span> <span class="st">"gpt-4o"</span>, <span class="at">echo =</span> <span class="cn">FALSE</span>, <span class="at">seed =</span> <span class="dv">1234</span>)</span>
+<span id="cb18-2" class="hljs-ln-code"><a href=""></a>bio_spec <span class="ot">&lt;-</span> <span class="fu">type_object</span>(</span>
+<span id="cb18-3" class="hljs-ln-code"><a href=""></a>  <span class="st">"Person"</span>,</span>
+<span id="cb18-4" class="hljs-ln-code"><a href=""></a>  <span class="at">name =</span> <span class="fu">type_string</span>(<span class="st">"Name of the person"</span>),</span>
+<span id="cb18-5" class="hljs-ln-code"><a href=""></a>  <span class="at">profession =</span> <span class="fu">type_string</span>(<span class="st">"Profession"</span>),</span>
+<span id="cb18-6" class="hljs-ln-code"><a href=""></a>  <span class="at">interests =</span> <span class="fu">type_string</span>(<span class="st">"Interests"</span>),</span>
+<span id="cb18-7" class="hljs-ln-code"><a href=""></a>  <span class="at">favorite_pkg =</span> <span class="fu">type_string</span>(<span class="st">"Favorite R package, say 'Unknown' if none"</span>)</span>
+<span id="cb18-8" class="hljs-ln-code"><a href=""></a>)</span>
+<span id="cb18-9" class="hljs-ln-code"><a href=""></a>joe <span class="ot">&lt;-</span> chat<span class="sc">$</span><span class="fu">extract_data</span>(bio_joe, <span class="at">spec =</span> bio_spec)</span>
+<span id="cb18-10" class="hljs-ln-code"><a href=""></a>joe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$name
 [1] "Joe Cheng"
@@ -795,24 +807,24 @@ $favorite_pkg
 </div>
 </div>
 </section>
-<section id="stucture-output---an-example-2" class="slide level2" data-auto-animate="true">
+<section id="stucture-output---an-example-3" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Stucture Output - An Example</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb19-1" class="hljs-ln-code"><a href=""></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openai</span>(<span class="at">model =</span> <span class="st">"gpt-4o"</span>, <span class="at">echo =</span> <span class="cn">FALSE</span>, <span class="at">seed =</span> <span class="dv">1234</span>)</span>
-<span id="cb19-2" class="hljs-ln-code"><a href=""></a>bio_spec <span class="ot">&lt;-</span> <span class="fu">type_object</span>(</span>
-<span id="cb19-3" class="hljs-ln-code"><a href=""></a>  <span class="st">"Person"</span>,</span>
-<span id="cb19-4" class="hljs-ln-code"><a href=""></a>  <span class="at">name =</span> <span class="fu">type_string</span>(<span class="st">"Name of the person"</span>),</span>
-<span id="cb19-5" class="hljs-ln-code"><a href=""></a>  <span class="at">profession =</span> <span class="fu">type_string</span>(<span class="st">"Profession"</span>),</span>
-<span id="cb19-6" class="hljs-ln-code"><a href=""></a>  <span class="at">interests =</span> <span class="fu">type_string</span>(<span class="st">"Interests"</span>),</span>
-<span id="cb19-7" class="hljs-ln-code"><a href=""></a>  <span class="at">favorite_pkg =</span> <span class="fu">type_string</span>(<span class="st">"Favorite R package, say 'Unknown' if none"</span>)</span>
-<span id="cb19-8" class="hljs-ln-code"><a href=""></a>)</span>
-<span id="cb19-9" class="hljs-ln-code"><a href=""></a></span>
-<span id="cb19-10" class="hljs-ln-code"><a href=""></a><span class="fu">bind_rows</span>(</span>
-<span id="cb19-11" class="hljs-ln-code"><a href=""></a>  chat<span class="sc">$</span><span class="fu">extract_data</span>(bio_joe, <span class="at">spec =</span> bio_spec) <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>(),  <span class="co"># joe's bio</span></span>
-<span id="cb19-12" class="hljs-ln-code"><a href=""></a>  chat<span class="sc">$</span><span class="fu">extract_data</span>(bio_james, <span class="at">spec =</span> bio_spec) <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>() <span class="co"># my bio</span></span>
-<span id="cb19-13" class="hljs-ln-code"><a href=""></a>) <span class="sc">|&gt;</span> </span>
-<span id="cb19-14" class="hljs-ln-code"><a href=""></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb19-15" class="hljs-ln-code"><a href=""></a>  <span class="fu">opt_stylize</span>(<span class="at">style =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb20-1" class="hljs-ln-code"><a href=""></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openai</span>(<span class="at">model =</span> <span class="st">"gpt-4o"</span>, <span class="at">echo =</span> <span class="cn">FALSE</span>, <span class="at">seed =</span> <span class="dv">1234</span>)</span>
+<span id="cb20-2" class="hljs-ln-code"><a href=""></a>bio_spec <span class="ot">&lt;-</span> <span class="fu">type_object</span>(</span>
+<span id="cb20-3" class="hljs-ln-code"><a href=""></a>  <span class="st">"Person"</span>,</span>
+<span id="cb20-4" class="hljs-ln-code"><a href=""></a>  <span class="at">name =</span> <span class="fu">type_string</span>(<span class="st">"Name of the person"</span>),</span>
+<span id="cb20-5" class="hljs-ln-code"><a href=""></a>  <span class="at">profession =</span> <span class="fu">type_string</span>(<span class="st">"Profession"</span>),</span>
+<span id="cb20-6" class="hljs-ln-code"><a href=""></a>  <span class="at">interests =</span> <span class="fu">type_string</span>(<span class="st">"Interests"</span>),</span>
+<span id="cb20-7" class="hljs-ln-code"><a href=""></a>  <span class="at">favorite_pkg =</span> <span class="fu">type_string</span>(<span class="st">"Favorite R package, say 'Unknown' if none"</span>)</span>
+<span id="cb20-8" class="hljs-ln-code"><a href=""></a>)</span>
+<span id="cb20-9" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb20-10" class="hljs-ln-code"><a href=""></a><span class="fu">bind_rows</span>(</span>
+<span id="cb20-11" class="hljs-ln-code"><a href=""></a>  chat<span class="sc">$</span><span class="fu">extract_data</span>(bio_joe, <span class="at">spec =</span> bio_spec) <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>(),  <span class="co"># joe's bio</span></span>
+<span id="cb20-12" class="hljs-ln-code"><a href=""></a>  chat<span class="sc">$</span><span class="fu">extract_data</span>(bio_james, <span class="at">spec =</span> bio_spec) <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>() <span class="co"># my bio</span></span>
+<span id="cb20-13" class="hljs-ln-code"><a href=""></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb20-14" class="hljs-ln-code"><a href=""></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb20-15" class="hljs-ln-code"><a href=""></a>  <span class="fu">opt_stylize</span>(<span class="at">style =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <div id="pikksjwbyf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -1275,7 +1287,7 @@ $favorite_pkg
 <tr class="even">
 <td class="gt_row gt_left gt_striped" headers="name">James Wade</td>
 <td class="gt_row gt_left gt_striped" headers="profession">Research Scientist</td>
-<td class="gt_row gt_left gt_striped" headers="interests">Data science, chemistry, materials science, machine learning, data visualization, open-source contributions</td>
+<td class="gt_row gt_left gt_striped" headers="interests">Open-source data science, materials characterization, machine learning, data visualization</td>
 <td class="gt_row gt_left gt_striped" headers="favorite_pkg">Unknown</td>
 </tr>
 </tbody>
@@ -1299,102 +1311,19 @@ $favorite_pkg
 <section id="structured-output-2" class="slide level2 scrollable">
 <h2>Structured Output</h2>
 <div class="panel-tabset">
-<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Schema</a></li><li><a href="#tabset-2-2">Schema - Code</a></li><li><a href="#tabset-2-3">Result</a></li><li><a href="#tabset-2-4">Code</a></li></ul>
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Code</a></li><li><a href="#tabset-2-2">Result</a></li><li><a href="#tabset-2-3">Schema</a></li><li><a href="#tabset-2-4">Schema - Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1">
-<pre><code>study_info_spec/
-├── title (string)
-├── authors [array]
-│   └── items
-│       ├── name (string)
-│       └── affiliation (string)
-├── published_date (string)
-├── journal (string)
-├── condition_addressed (string)
-├── study_objective (string)
-├── study_design (string)
-├── participants/
-│   ├── number (number)
-│   ├── inclusion_criteria (string)
-│   └── exclusion_criteria (string)
-├── intervention/
-│   ├── dosage_groups [array&lt;number&gt;]
-│   └── duration (string)
-├── outcome_measures/
-│   ├── primary_endpoint (string)
-│   ├── secondary_endpoints (string)
-│   └── exploratory_measures (string)
-├── results/
-│   ├── primary_outcome (string)
-│   ├── secondary_outcomes (string)
-│   └── safety_and_adverse_events (string)
-└── discussion/
-├── efficacy_comparison (string)
-├── safety_profile (string)
-└── implications (string)</code></pre>
+<p><br></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openai</span>(<span class="at">model =</span> <span class="st">"gpt-4o"</span>)             <span class="co"># create chat object</span></span>
+<span id="cb21-2"><a href=""></a>text <span class="ot">&lt;-</span> <span class="fu">read_pdf</span>(<span class="at">file_path =</span> <span class="st">"NEJMoa2302392.pdf"</span>) <span class="co"># extrace text from pdf</span></span>
+<span id="cb21-3"><a href=""></a>extracted_data <span class="ot">&lt;-</span> chat<span class="sc">$</span><span class="fu">extract_data</span>(              <span class="co"># extra_data call</span></span>
+<span id="cb21-4"><a href=""></a>  text,</span>
+<span id="cb21-5"><a href=""></a>  <span class="at">spec =</span> study_info_spec                          <span class="co"># pass custom spec</span></span>
+<span id="cb21-6"><a href=""></a>)</span>
+<span id="cb21-7"><a href=""></a>extracted_tbl <span class="ot">&lt;-</span> <span class="fu">studies_to_table</span>(extracted_data) <span class="co"># convert to table</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-2-2">
-<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a>study_info_spec <span class="ot">&lt;-</span> <span class="fu">type_object</span>(</span>
-<span id="cb21-2"><a href=""></a>  <span class="st">"Information about a medical research study"</span>,</span>
-<span id="cb21-3"><a href=""></a>  <span class="co"># Basic study information</span></span>
-<span id="cb21-4"><a href=""></a>  <span class="at">title =</span> <span class="fu">type_string</span>(<span class="st">"The title of the study."</span>),</span>
-<span id="cb21-5"><a href=""></a>  <span class="at">authors =</span> <span class="fu">type_array</span>(</span>
-<span id="cb21-6"><a href=""></a>    <span class="st">"List of authors with names and affiliations."</span>,</span>
-<span id="cb21-7"><a href=""></a>    <span class="at">items =</span> <span class="fu">type_object</span>(</span>
-<span id="cb21-8"><a href=""></a>      <span class="at">name =</span> <span class="fu">type_string</span>(<span class="st">"Name of the author."</span>),</span>
-<span id="cb21-9"><a href=""></a>      <span class="at">affiliation =</span> <span class="fu">type_string</span>(<span class="st">"Affiliation of the author."</span>)</span>
-<span id="cb21-10"><a href=""></a>    )</span>
-<span id="cb21-11"><a href=""></a>  ),</span>
-<span id="cb21-12"><a href=""></a>  <span class="at">published_date =</span> <span class="fu">type_string</span>(<span class="st">"The date the study was published."</span>),</span>
-<span id="cb21-13"><a href=""></a>  <span class="at">journal =</span> <span class="fu">type_string</span>(<span class="st">"The journal in which the study is published."</span>),</span>
-<span id="cb21-14"><a href=""></a>  <span class="at">condition_addressed =</span> <span class="fu">type_string</span>(<span class="st">"The medical condition that is being addressed in the study."</span>),</span>
-<span id="cb21-15"><a href=""></a>  <span class="at">study_objective =</span> <span class="fu">type_string</span>(<span class="st">"The objective of the study."</span>),</span>
-<span id="cb21-16"><a href=""></a>  <span class="at">study_design =</span> <span class="fu">type_string</span>(<span class="st">"The design of the study."</span>),</span>
-<span id="cb21-17"><a href=""></a></span>
-<span id="cb21-18"><a href=""></a>  <span class="co"># Participant information</span></span>
-<span id="cb21-19"><a href=""></a>  <span class="at">participants =</span> <span class="fu">type_object</span>(</span>
-<span id="cb21-20"><a href=""></a>    <span class="st">"Details about study participants including criteria."</span>,</span>
-<span id="cb21-21"><a href=""></a>    <span class="at">number =</span> <span class="fu">type_number</span>(<span class="st">"Number of participants in the study."</span>),</span>
-<span id="cb21-22"><a href=""></a>    <span class="at">inclusion_criteria =</span> <span class="fu">type_string</span>(<span class="st">"Inclusion criteria for participants."</span>),</span>
-<span id="cb21-23"><a href=""></a>    <span class="at">exclusion_criteria =</span> <span class="fu">type_string</span>(<span class="st">"Exclusion criteria for participants."</span>)</span>
-<span id="cb21-24"><a href=""></a>  ),</span>
-<span id="cb21-25"><a href=""></a></span>
-<span id="cb21-26"><a href=""></a>  <span class="co"># Intervention details</span></span>
-<span id="cb21-27"><a href=""></a>  <span class="at">intervention =</span> <span class="fu">type_object</span>(</span>
-<span id="cb21-28"><a href=""></a>    <span class="st">"Details about the interventions conducted in the study."</span>,</span>
-<span id="cb21-29"><a href=""></a>    <span class="at">dosage_groups =</span> <span class="fu">type_array</span>(</span>
-<span id="cb21-30"><a href=""></a>      <span class="st">"Dosage groups for the intervention."</span>,</span>
-<span id="cb21-31"><a href=""></a>      <span class="at">items =</span> <span class="fu">type_number</span>()</span>
-<span id="cb21-32"><a href=""></a>    ),</span>
-<span id="cb21-33"><a href=""></a>    <span class="at">duration =</span> <span class="fu">type_string</span>(<span class="st">"Duration of the study intervention."</span>)</span>
-<span id="cb21-34"><a href=""></a>  ),</span>
-<span id="cb21-35"><a href=""></a></span>
-<span id="cb21-36"><a href=""></a>  <span class="co"># Outcome measures</span></span>
-<span id="cb21-37"><a href=""></a>  <span class="at">outcome_measures =</span> <span class="fu">type_object</span>(</span>
-<span id="cb21-38"><a href=""></a>    <span class="st">"Details about the outcome measures used in the study."</span>,</span>
-<span id="cb21-39"><a href=""></a>    <span class="at">primary_endpoint =</span> <span class="fu">type_string</span>(<span class="st">"Primary outcome measurement."</span>),</span>
-<span id="cb21-40"><a href=""></a>    <span class="at">secondary_endpoints =</span> <span class="fu">type_string</span>(<span class="st">"Secondary outcome measurements."</span>),</span>
-<span id="cb21-41"><a href=""></a>    <span class="at">exploratory_measures =</span> <span class="fu">type_string</span>(<span class="st">"Exploratory outcome measurements."</span>)</span>
-<span id="cb21-42"><a href=""></a>  ),</span>
-<span id="cb21-43"><a href=""></a></span>
-<span id="cb21-44"><a href=""></a>  <span class="co"># Results</span></span>
-<span id="cb21-45"><a href=""></a>  <span class="at">results =</span> <span class="fu">type_object</span>(</span>
-<span id="cb21-46"><a href=""></a>    <span class="st">"Results of the study."</span>,</span>
-<span id="cb21-47"><a href=""></a>    <span class="at">primary_outcome =</span> <span class="fu">type_string</span>(<span class="st">"Primary outcome of the study."</span>),</span>
-<span id="cb21-48"><a href=""></a>    <span class="at">secondary_outcomes =</span> <span class="fu">type_string</span>(<span class="st">"Secondary outcomes of the study."</span>),</span>
-<span id="cb21-49"><a href=""></a>    <span class="at">safety_and_adverse_events =</span> <span class="fu">type_string</span>(<span class="st">"Overview of safety and adverse events."</span>)</span>
-<span id="cb21-50"><a href=""></a>  ),</span>
-<span id="cb21-51"><a href=""></a></span>
-<span id="cb21-52"><a href=""></a>  <span class="co"># Discussion</span></span>
-<span id="cb21-53"><a href=""></a>  <span class="at">discussion =</span> <span class="fu">type_object</span>(</span>
-<span id="cb21-54"><a href=""></a>    <span class="st">"Discussion and conclusions of the study."</span>,</span>
-<span id="cb21-55"><a href=""></a>    <span class="at">efficacy_comparison =</span> <span class="fu">type_string</span>(<span class="st">"Comparison of efficacy with other treatments."</span>),</span>
-<span id="cb21-56"><a href=""></a>    <span class="at">safety_profile =</span> <span class="fu">type_string</span>(<span class="st">"Safety profile comparison."</span>),</span>
-<span id="cb21-57"><a href=""></a>    <span class="at">implications =</span> <span class="fu">type_string</span>(<span class="st">"Implications of the study findings."</span>)</span>
-<span id="cb21-58"><a href=""></a>  )</span>
-<span id="cb21-59"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="tabset-2-3">
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -1943,15 +1872,98 @@ $favorite_pkg
 </div>
 </div>
 </div>
+<div id="tabset-2-3">
+<pre><code>study_info_spec/
+├── title (string)
+├── authors [array]
+│   └── items
+│       ├── name (string)
+│       └── affiliation (string)
+├── published_date (string)
+├── journal (string)
+├── condition_addressed (string)
+├── study_objective (string)
+├── study_design (string)
+├── participants/
+│   ├── number (number)
+│   ├── inclusion_criteria (string)
+│   └── exclusion_criteria (string)
+├── intervention/
+│   ├── dosage_groups [array&lt;number&gt;]
+│   └── duration (string)
+├── outcome_measures/
+│   ├── primary_endpoint (string)
+│   ├── secondary_endpoints (string)
+│   └── exploratory_measures (string)
+├── results/
+│   ├── primary_outcome (string)
+│   ├── secondary_outcomes (string)
+│   └── safety_and_adverse_events (string)
+└── discussion/
+├── efficacy_comparison (string)
+├── safety_profile (string)
+└── implications (string)</code></pre>
+</div>
 <div id="tabset-2-4">
-<p><br></p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openai</span>(<span class="at">model =</span> <span class="st">"gpt-4o"</span>)             <span class="co"># create chat object</span></span>
-<span id="cb22-2"><a href=""></a>text <span class="ot">&lt;-</span> <span class="fu">read_pdf</span>(<span class="at">file_path =</span> <span class="st">"NEJMoa2302392.pdf"</span>) <span class="co"># extrace text from pdf</span></span>
-<span id="cb22-3"><a href=""></a>extracted_data <span class="ot">&lt;-</span> chat<span class="sc">$</span><span class="fu">extract_data</span>(              <span class="co"># extra_data call</span></span>
-<span id="cb22-4"><a href=""></a>  text,</span>
-<span id="cb22-5"><a href=""></a>  <span class="at">spec =</span> study_info_spec                          <span class="co"># pass custom spec</span></span>
-<span id="cb22-6"><a href=""></a>)</span>
-<span id="cb22-7"><a href=""></a>extracted_tbl <span class="ot">&lt;-</span> <span class="fu">studies_to_table</span>(extracted_data) <span class="co"># convert to table</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a>study_info_spec <span class="ot">&lt;-</span> <span class="fu">type_object</span>(</span>
+<span id="cb23-2"><a href=""></a>  <span class="st">"Information about a medical research study"</span>,</span>
+<span id="cb23-3"><a href=""></a>  <span class="co"># Basic study information</span></span>
+<span id="cb23-4"><a href=""></a>  <span class="at">title =</span> <span class="fu">type_string</span>(<span class="st">"The title of the study."</span>),</span>
+<span id="cb23-5"><a href=""></a>  <span class="at">authors =</span> <span class="fu">type_array</span>(</span>
+<span id="cb23-6"><a href=""></a>    <span class="st">"List of authors with names and affiliations."</span>,</span>
+<span id="cb23-7"><a href=""></a>    <span class="at">items =</span> <span class="fu">type_object</span>(</span>
+<span id="cb23-8"><a href=""></a>      <span class="at">name =</span> <span class="fu">type_string</span>(<span class="st">"Name of the author."</span>),</span>
+<span id="cb23-9"><a href=""></a>      <span class="at">affiliation =</span> <span class="fu">type_string</span>(<span class="st">"Affiliation of the author."</span>)</span>
+<span id="cb23-10"><a href=""></a>    )</span>
+<span id="cb23-11"><a href=""></a>  ),</span>
+<span id="cb23-12"><a href=""></a>  <span class="at">published_date =</span> <span class="fu">type_string</span>(<span class="st">"The date the study was published."</span>),</span>
+<span id="cb23-13"><a href=""></a>  <span class="at">journal =</span> <span class="fu">type_string</span>(<span class="st">"The journal in which the study is published."</span>),</span>
+<span id="cb23-14"><a href=""></a>  <span class="at">condition_addressed =</span> <span class="fu">type_string</span>(<span class="st">"The medical condition that is being addressed in the study."</span>),</span>
+<span id="cb23-15"><a href=""></a>  <span class="at">study_objective =</span> <span class="fu">type_string</span>(<span class="st">"The objective of the study."</span>),</span>
+<span id="cb23-16"><a href=""></a>  <span class="at">study_design =</span> <span class="fu">type_string</span>(<span class="st">"The design of the study."</span>),</span>
+<span id="cb23-17"><a href=""></a></span>
+<span id="cb23-18"><a href=""></a>  <span class="co"># Participant information</span></span>
+<span id="cb23-19"><a href=""></a>  <span class="at">participants =</span> <span class="fu">type_object</span>(</span>
+<span id="cb23-20"><a href=""></a>    <span class="st">"Details about study participants including criteria."</span>,</span>
+<span id="cb23-21"><a href=""></a>    <span class="at">number =</span> <span class="fu">type_number</span>(<span class="st">"Number of participants in the study."</span>),</span>
+<span id="cb23-22"><a href=""></a>    <span class="at">inclusion_criteria =</span> <span class="fu">type_string</span>(<span class="st">"Inclusion criteria for participants."</span>),</span>
+<span id="cb23-23"><a href=""></a>    <span class="at">exclusion_criteria =</span> <span class="fu">type_string</span>(<span class="st">"Exclusion criteria for participants."</span>)</span>
+<span id="cb23-24"><a href=""></a>  ),</span>
+<span id="cb23-25"><a href=""></a></span>
+<span id="cb23-26"><a href=""></a>  <span class="co"># Intervention details</span></span>
+<span id="cb23-27"><a href=""></a>  <span class="at">intervention =</span> <span class="fu">type_object</span>(</span>
+<span id="cb23-28"><a href=""></a>    <span class="st">"Details about the interventions conducted in the study."</span>,</span>
+<span id="cb23-29"><a href=""></a>    <span class="at">dosage_groups =</span> <span class="fu">type_array</span>(</span>
+<span id="cb23-30"><a href=""></a>      <span class="st">"Dosage groups for the intervention."</span>,</span>
+<span id="cb23-31"><a href=""></a>      <span class="at">items =</span> <span class="fu">type_number</span>()</span>
+<span id="cb23-32"><a href=""></a>    ),</span>
+<span id="cb23-33"><a href=""></a>    <span class="at">duration =</span> <span class="fu">type_string</span>(<span class="st">"Duration of the study intervention."</span>)</span>
+<span id="cb23-34"><a href=""></a>  ),</span>
+<span id="cb23-35"><a href=""></a></span>
+<span id="cb23-36"><a href=""></a>  <span class="co"># Outcome measures</span></span>
+<span id="cb23-37"><a href=""></a>  <span class="at">outcome_measures =</span> <span class="fu">type_object</span>(</span>
+<span id="cb23-38"><a href=""></a>    <span class="st">"Details about the outcome measures used in the study."</span>,</span>
+<span id="cb23-39"><a href=""></a>    <span class="at">primary_endpoint =</span> <span class="fu">type_string</span>(<span class="st">"Primary outcome measurement."</span>),</span>
+<span id="cb23-40"><a href=""></a>    <span class="at">secondary_endpoints =</span> <span class="fu">type_string</span>(<span class="st">"Secondary outcome measurements."</span>),</span>
+<span id="cb23-41"><a href=""></a>    <span class="at">exploratory_measures =</span> <span class="fu">type_string</span>(<span class="st">"Exploratory outcome measurements."</span>)</span>
+<span id="cb23-42"><a href=""></a>  ),</span>
+<span id="cb23-43"><a href=""></a></span>
+<span id="cb23-44"><a href=""></a>  <span class="co"># Results</span></span>
+<span id="cb23-45"><a href=""></a>  <span class="at">results =</span> <span class="fu">type_object</span>(</span>
+<span id="cb23-46"><a href=""></a>    <span class="st">"Results of the study."</span>,</span>
+<span id="cb23-47"><a href=""></a>    <span class="at">primary_outcome =</span> <span class="fu">type_string</span>(<span class="st">"Primary outcome of the study."</span>),</span>
+<span id="cb23-48"><a href=""></a>    <span class="at">secondary_outcomes =</span> <span class="fu">type_string</span>(<span class="st">"Secondary outcomes of the study."</span>),</span>
+<span id="cb23-49"><a href=""></a>    <span class="at">safety_and_adverse_events =</span> <span class="fu">type_string</span>(<span class="st">"Overview of safety and adverse events."</span>)</span>
+<span id="cb23-50"><a href=""></a>  ),</span>
+<span id="cb23-51"><a href=""></a></span>
+<span id="cb23-52"><a href=""></a>  <span class="co"># Discussion</span></span>
+<span id="cb23-53"><a href=""></a>  <span class="at">discussion =</span> <span class="fu">type_object</span>(</span>
+<span id="cb23-54"><a href=""></a>    <span class="st">"Discussion and conclusions of the study."</span>,</span>
+<span id="cb23-55"><a href=""></a>    <span class="at">efficacy_comparison =</span> <span class="fu">type_string</span>(<span class="st">"Comparison of efficacy with other treatments."</span>),</span>
+<span id="cb23-56"><a href=""></a>    <span class="at">safety_profile =</span> <span class="fu">type_string</span>(<span class="st">"Safety profile comparison."</span>),</span>
+<span id="cb23-57"><a href=""></a>    <span class="at">implications =</span> <span class="fu">type_string</span>(<span class="st">"Implications of the study findings."</span>)</span>
+<span id="cb23-58"><a href=""></a>  )</span>
+<span id="cb23-59"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
