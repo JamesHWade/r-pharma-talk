@@ -3,7 +3,7 @@ title: "Integrating AI Assistants into Shiny Apps"
 subtitle: "Simplify Development and Enhance User Experience"
 author: "James Wade"
 abstract: "Incorporating AI assistants powered by large language models into your Shiny applications can streamline development and significantly improve user experience. This presentation will highlight practical patterns for integrating these assistants, making app building easier and more efficient. We will also explore emerging tools that expand the possibilities of AI integration, enabling you to create more interactive and intelligent Shiny apps."
-footer: "R/Pharma 2024"
+footer: "jameshwade.github.io/r-pharma-talk"
 format:
   revealjs:
     logo: images/dow.svg
@@ -607,6 +607,4 @@ extracted_tbl <- studies_to_table(extracted_data) # convert to table
 ```
 :::
 
-## [Sidebots - Why are they so useful?]{.r-fit-text style="color: rgb(15, 56, 154); background-color: rgba(255, 255, 255, .7);"} {.center background-image="images/r-sidebot.png"}
-
-## Sidebots
+## [Sidebots - Why are they so useful?]{.r-fit-text style="color: rgb(15, 56, 154); background-color: rgba(255, 255, 255, .7);"} {.center background-image="images/r-sidebot.png" style="background-blend-mode: overlay; background-color: rgba(0, 0, 255, 0.3)"}
