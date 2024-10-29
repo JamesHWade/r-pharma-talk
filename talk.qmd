@@ -122,9 +122,9 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-## Let's (almost) Build a Chatbot {auto-animate="true"}
+<!-- ## Let's (almost) Build a Chatbot {auto-animate="true"} -->
 
-![](images/clipboard-3132120658.png){.rounded-shadow fig-align="center"}
+<!-- ![](images/clipboard-3132120658.png){.rounded-shadow fig-align="center"} -->
 
 ## Meet `elmer` {auto-animate="true"}
 
@@ -272,21 +272,23 @@ package for LLM APIs?")
 ```{r}
 #| echo: false
 #| fig-align: 'center'
-#| fig-width: 6
-#| fig-height: 4
-#| out-extra: .rounded-shadow
+#| fig-height: 3
+#| fig-width: 4
 library(ggplot2)
 
 set.seed(123)
 data <- data.frame(x = rnorm(100), y = rnorm(100) + 0.5 * rnorm(100))
 
-ggplot(data, aes(x = x, y = y)) +
+p1 <- 
+  ggplot(data, aes(x = x, y = y)) +
   geom_point(color = "darkorange", fill = "skyblue") +
   geom_smooth(method = "lm", color = "purple", linetype = "dashed") +
   labs(title = "Fun Scatter Plot!", x = "Random X", y = "Random Y") +
   theme_minimal(base_size = 14) +
   theme(plot.title = element_text(face = "bold", hjust = 0.5))
 ```
+
+![](images/example_plot.png){.rounded-shadow fig-align="center" width="400" height="300"}
 
 ``` r
 chat$chat("In a few words, interpret this plot", content_image_plot())
