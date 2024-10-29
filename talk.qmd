@@ -444,6 +444,21 @@ bio_spec <- type_object(
   favorite_pkg = type_string("Favorite R package, say 'Unknown' if none")
 )
 joe <- chat$extract_data(bio_joe, spec = bio_spec)
+```
+
+## Stucture Output - An Example {auto-animate="true"}
+
+```{r}
+#| echo: true
+chat <- chat_openai(model = "gpt-4o", echo = FALSE, seed = 1234)
+bio_spec <- type_object(
+  "Person",
+  name = type_string("Name of the person"),
+  profession = type_string("Profession"),
+  interests = type_string("Interests"),
+  favorite_pkg = type_string("Favorite R package, say 'Unknown' if none")
+)
+joe <- chat$extract_data(bio_joe, spec = bio_spec)
 joe
 ```
 
@@ -483,6 +498,31 @@ bind_rows(
 ## Structured Output {.scrollable}
 
 ::: panel-tabset
+
+### Code
+
+<br>
+
+``` r
+chat <- chat_openai(model = "gpt-4o")             # create chat object
+text <- read_pdf(file_path = "NEJMoa2302392.pdf") # extrace text from pdf
+extracted_data <- chat$extract_data(              # extra_data call
+  text,
+  spec = study_info_spec                          # pass custom spec
+)
+extracted_tbl <- studies_to_table(extracted_data) # convert to table
+```
+
+### Result
+
+```{r}
+readr::read_csv("extracted_study_info.csv",
+                col_types = readr::cols(.default = "c")) |>
+  tidyr::pivot_longer(cols = dplyr::everything()) |>
+  gt::gt() |>
+  gt::opt_stylize(style = 3)
+```
+
 ### Schema
 
 ```         
@@ -580,30 +620,6 @@ study_info_spec <- type_object(
     implications = type_string("Implications of the study findings.")
   )
 )
-```
-
-### Result
-
-```{r}
-readr::read_csv("extracted_study_info.csv",
-                col_types = readr::cols(.default = "c")) |>
-  tidyr::pivot_longer(cols = dplyr::everything()) |>
-  gt::gt() |>
-  gt::opt_stylize(style = 3)
-```
-
-### Code
-
-<br>
-
-``` r
-chat <- chat_openai(model = "gpt-4o")             # create chat object
-text <- read_pdf(file_path = "NEJMoa2302392.pdf") # extrace text from pdf
-extracted_data <- chat$extract_data(              # extra_data call
-  text,
-  spec = study_info_spec                          # pass custom spec
-)
-extracted_tbl <- studies_to_table(extracted_data) # convert to table
 ```
 :::
 
